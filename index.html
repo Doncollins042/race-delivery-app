@@ -1,0 +1,1517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Race — food, drugs, groceries and artisans in 30 minutes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --y:#FFC93C; --y-soft:#FFF1C7; --panel:#1C1A3A; --panel-2:#2A2852;
+  --bg:#EDEFF4; --card:#FFFFFF; --text:#1C1A3A; --muted:#62667F; --line:#DFE2EA;
+  --green:#1E8E4E; --green-bg:#E2F4E9; --red:#C93C3C; --red-bg:#FBE7E7; --blue-bg:#E7ECFB; --blue:#3550C4;
+  --disp:'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body:'DM Sans', -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#11112A; --card:#1C1B3B; --text:#F0F0FA; --muted:#A5A7C4; --line:#2F2E57;
+    --green-bg:#16372A; --red-bg:#3D1F27; --blue-bg:#232D5C; --blue:#9CB0FF; --y-soft:#3A3320; --panel:#252352; --panel-2:#33306A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11112A; --card:#1C1B3B; --text:#F0F0FA; --muted:#A5A7C4; --line:#2F2E57;
+  --green-bg:#16372A; --red-bg:#3D1F27; --blue-bg:#232D5C; --blue:#9CB0FF; --y-soft:#3A3320; --panel:#252352; --panel-2:#33306A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:15px/1.5 var(--body)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--y);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--disp);margin:0;line-height:1.1;letter-spacing:-.01em}
+p{margin:0}
+.wrap{display:flex;justify-content:center;gap:28px;padding:0 12px}
+.shell{width:100%;max-width:460px;min-height:100vh;display:flex;flex-direction:column;position:relative}
+.aside{display:none;width:300px;padding-top:86px;position:sticky;top:0;align-self:flex-start}
+@media(min-width:980px){.aside{display:block}}
+.aside h3{font-size:20px;margin-bottom:10px}
+.aside ol{padding-left:20px;margin:0;color:var(--muted)}
+.aside li{margin-bottom:8px}
+.aside .box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:12px 4px 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:-.04em;display:inline-block;transform:skewX(-10deg);position:relative;line-height:1;padding-right:6px}
+.brand::after{content:"";position:absolute;left:-6px;right:0;bottom:-3px;height:7px;background:var(--y);z-index:-1;border-radius:2px}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px;margin-left:auto}
+.seg button{border:0;background:none;padding:6px 10px;border-radius:9px;font-weight:600;font-size:13px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--panel);color:#fff}
+.demo-btn{border:1px dashed var(--muted);background:none;border-radius:10px;padding:6px 10px;font-size:13px;font-weight:600;color:var(--muted)}
+
+main{flex:1;padding:4px 4px 110px}
+.back{border:0;background:none;padding:6px 0;font-weight:600;color:var(--muted);display:inline-flex;gap:6px;align-items:center}
+.h1{font-size:30px;font-weight:800;margin:6px 0 4px}
+.sub{color:var(--muted)}
+.sec{margin-top:22px}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.sec-h h2{font-size:19px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.row{display:flex;align-items:center;gap:12px}
+.between{justify-content:space-between}
+.stack>*+*{margin-top:10px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.b{font-weight:700}
+.price{font-weight:700;white-space:nowrap}
+
+.zone{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:6px}
+.zone select{border:0;background:none;font-weight:700;flex:1;min-width:0;appearance:auto}
+
+.hero{margin:18px 0 6px}
+.hero h1{font-size:clamp(34px,9vw,44px);font-weight:800;letter-spacing:-.035em}
+.promise{margin-top:14px;background:var(--panel);color:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:14px;align-items:center}
+.promise .big{font-family:var(--disp);font-weight:800;font-size:34px;color:var(--y);line-height:1;white-space:nowrap}
+.promise p{font-size:14px;color:#D9D8EE}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.tile .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--y-soft)}
+.tile b{font-family:var(--disp);font-size:17px}
+.tile span{font-size:13px;color:var(--muted);line-height:1.35}
+.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center;min-height:0}
+.tile:active{transform:scale(.98)}
+
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;background:var(--blue-bg);color:var(--blue);white-space:nowrap}
+.chip.g{background:var(--green-bg);color:var(--green)}
+.chip.r{background:var(--red-bg);color:var(--red)}
+.chip.y{background:var(--y-soft);color:#7A5A00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.y{color:var(--y)}}
+
+.list{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.li{display:flex;gap:12px;align-items:center;padding:13px 14px;border-top:1px solid var(--line)}
+.li:first-child{border-top:0}
+.li .grow{flex:1;min-width:0}
+.li .name{font-weight:600}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.qty button{border:0;background:var(--bg);width:32px;height:32px;font-weight:700;font-size:17px}
+.qty span{min-width:26px;text-align:center;font-weight:700}
+.add{border:0;background:var(--y);color:#1C1A3A;font-weight:700;border-radius:10px;padding:7px 14px}
+
+.btn{display:flex;width:100%;justify-content:center;align-items:center;gap:8px;border:0;border-radius:14px;padding:15px 16px;font-weight:700;font-size:16px;background:var(--y);color:#1C1A3A}
+.btn.dark{background:var(--panel);color:#fff}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btn.green{background:var(--green);color:#fff}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn-sm{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:7px 12px;font-weight:600;font-size:13px}
+
+.field{display:block;margin-top:12px}
+.field>span{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+.input,textarea.input,select.input{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px;font-size:16px}
+textarea.input{min-height:84px;resize:vertical}
+.err{color:var(--red);font-weight:600;font-size:14px;margin-top:10px}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+
+.cartbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));width:min(436px,calc(100% - 24px));z-index:25}
+.cartbar .btn{box-shadow:0 8px 24px rgba(28,26,58,.25);justify-content:space-between}
+
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(460px,100%);background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:30}
+.nav button{flex:1;border:0;background:none;padding:8px 4px;border-radius:12px;font-size:12px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav button .i{font-size:19px;line-height:1}
+.nav button[aria-current="page"]{color:var(--text);background:var(--y-soft)}
+.badge{background:var(--red);color:#fff;border-radius:999px;font-size:11px;padding:0 6px;margin-left:3px}
+
+/* tracking */
+.trackpanel{background:var(--panel);color:#fff;border-radius:22px;padding:20px;display:flex;gap:18px;align-items:center}
+.ring{position:relative;width:132px;height:132px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring .t b{font-family:var(--disp);font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ring .t small{font-size:11px;color:#C9C8E4}
+.trackpanel h2{font-size:21px;margin-bottom:6px}
+.trackpanel .chip{margin-top:4px}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:flex;gap:12px;padding:8px 0;position:relative}
+.tl .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;display:grid;place-items:center;font-size:12px;background:var(--card);z-index:1}
+.tl li.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+.tl li.now .dot{border-color:var(--y);background:var(--y)}
+.tl li:not(:last-child)::before{content:"";position:absolute;left:10px;top:30px;bottom:-8px;width:2px;background:var(--line)}
+.tl li.done:not(:last-child)::before{background:var(--green)}
+.tl li.todo{color:var(--muted)}
+.event{padding:10px 12px;border-radius:12px;font-size:14px;margin-top:8px}
+.event.warn{background:var(--y-soft)}
+.event.bad{background:var(--red-bg)}
+.event.ok{background:var(--green-bg)}
+.event.info{background:var(--blue-bg)}
+.code{font-family:var(--disp);font-weight:800;font-size:46px;letter-spacing:.18em;text-align:center;background:var(--y);color:#1C1A3A;border-radius:16px;padding:10px 0 8px;margin:10px 0;font-variant-numeric:tabular-nums}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--y);color:#1C1A3A;display:grid;place-items:center;font-family:var(--disp);font-weight:800;flex:none}
+.stars{color:#E0A800;letter-spacing:1px}
+.starpick{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.starpick button{border:0;background:none;font-size:38px;line-height:1;color:var(--line);padding:2px}
+.starpick button.on{color:#E0A800}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600}
+.tag[aria-pressed="true"]{background:var(--panel);color:#fff;border-color:var(--panel)}
+.check{display:flex;gap:12px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
+.check:first-child{border-top:0}
+.check input{width:22px;height:22px;accent-color:var(--green)}
+
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.kpi b{display:block;font-family:var(--disp);font-size:26px;font-weight:800;letter-spacing:-.02em}
+.kpi span{font-size:13px;color:var(--muted)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin:10px 0 4px}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+.tabs button[aria-pressed="true"]{background:var(--panel);color:#fff;border-color:var(--panel)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-top:1px solid var(--line);white-space:nowrap}
+th{border-top:0;font-size:12px;color:var(--muted);font-weight:600}
+.plan h3{font-size:19px;margin:22px 0 8px}
+.plan p,.plan li{color:var(--text)}
+.plan p+p{margin-top:8px}
+.plan ul,.plan ol{padding-left:20px;margin:6px 0}
+.plan li{margin-bottom:6px}
+
+/* sheet + toast */
+.scrim{position:fixed;inset:0;background:rgba(17,17,42,.5);z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);width:min(460px,100%);border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));max-height:88vh;overflow:auto}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.opt:first-of-type{border-top:0}
+.opt input{margin-top:3px;width:20px;height:20px;accent-color:var(--panel)}
+.switch{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.switch input{width:46px;height:26px;accent-color:var(--green)}
+.toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(436px,calc(100% - 24px));background:var(--panel);color:#fff;border-radius:14px;padding:12px 14px;z-index:80;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);border-left:5px solid var(--y);animation:drop .25s ease-out}
+@keyframes drop{from{transform:translate(-50%,-12px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.hscroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.hscroll .card{min-width:220px;scroll-snap-align:start}
+.banner{border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+
+/* ===== v2 additions ===== */
+.top .bell{position:relative;border:1px solid var(--line);background:var(--card);border-radius:10px;width:36px;height:34px;font-size:16px}
+.top .bell .badge{position:absolute;top:-6px;right:-6px;margin:0}
+.seg button{padding:6px 8px}
+.addr{display:flex;align-items:center;gap:8px;border:0;background:none;padding:2px 0;text-align:left;max-width:100%}
+.addr .lbl{font-size:12px;color:var(--muted)}
+.addr .ln{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 14px;margin-top:10px;width:100%;text-align:left;color:var(--muted)}
+.search input{border:0;background:none;outline:none;flex:1;font-size:16px;min-width:0}
+.promos{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 0 6px;margin-top:14px}
+.promo{min-width:84%;scroll-snap-align:start;border-radius:20px;padding:16px;color:#fff;position:relative;overflow:hidden;border:0;text-align:left}
+.promo b{font-family:var(--disp);font-size:22px;line-height:1.1;display:block;max-width:75%}
+.promo span{font-size:13px;opacity:.9;display:block;margin-top:6px;max-width:75%}
+.promo .em{position:absolute;right:12px;bottom:6px;font-size:58px;line-height:1}
+.promo .code-pill{display:inline-block;margin-top:10px;background:rgba(255,255,255,.2);border:1px dashed rgba(255,255,255,.7);border-radius:8px;padding:3px 8px;font-weight:700;font-size:13px;letter-spacing:.05em}
+.cats{display:flex;gap:10px;overflow-x:auto;padding:4px 0 6px}
+.cat{flex:none;width:76px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.cat .ic{width:60px;height:60px;border-radius:18px;background:var(--y-soft);display:grid;place-items:center;font-size:28px}
+.vcards{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px}
+.vcard{flex:none;width:250px;border:0;background:none;text-align:left;padding:0}
+.vlist .vcard{width:100%;margin-bottom:16px}
+.cover{height:128px;border-radius:18px;position:relative;display:grid;place-items:center;font-size:56px;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.22),transparent 55%)}
+.vlist .cover{height:150px}
+.cover .tagpill{position:absolute;left:10px;top:10px;background:var(--y);color:#1C1A3A;font-size:12px;font-weight:700;border-radius:8px;padding:3px 8px;z-index:1}
+.cover .eta{position:absolute;right:10px;bottom:10px;background:var(--card);color:var(--text);font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;z-index:1}
+.cover .fav{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.9);border:0;border-radius:50%;width:34px;height:34px;font-size:16px;z-index:2;color:#C93C3C}
+.vmeta{padding:8px 2px 0}
+.vmeta b{font-family:var(--disp);font-size:17px}
+.vmeta .small{display:flex;gap:8px;flex-wrap:wrap}
+.filters{display:flex;gap:8px;overflow-x:auto;margin:12px 0}
+.vhead .cover{height:170px;border-radius:0 0 22px 22px;margin:0 -4px;font-size:72px}
+.vinfo{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:-30px;position:relative;z-index:2}
+.vinfo h1{font-size:25px;font-weight:800}
+.stats{display:flex;gap:16px;margin-top:8px;font-size:13px;flex-wrap:wrap}
+.stats div b{display:block;font-size:15px}
+.menutabs{position:sticky;top:calc(env(safe-area-inset-top,0px) + 58px);z-index:15;background:var(--bg);display:flex;gap:8px;overflow-x:auto;padding:10px 0}
+.mi{display:flex;gap:12px;padding:14px;border-top:1px solid var(--line);align-items:center}
+.mi:first-child{border-top:0}
+.mi .thumb{width:70px;height:70px;border-radius:14px;display:grid;place-items:center;font-size:30px;flex:none}
+.mi .grow{flex:1;min-width:0}
+.mi .d{font-size:13px;color:var(--muted);line-height:1.35}
+.optg{margin-top:16px}
+.optg h3{font-size:16px;display:flex;justify-content:space-between;align-items:center}
+.opt2{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.opt2 input{width:20px;height:20px;accent-color:var(--panel)}
+.opt2 .grow{flex:1}
+.paym{display:flex;gap:12px;align-items:center;padding:13px 14px;border-top:1px solid var(--line)}
+.paym:first-child{border-top:0}
+.paym input{width:20px;height:20px;accent-color:var(--panel)}
+.tips{display:flex;gap:8px;flex-wrap:wrap}
+.map{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#E6EAE1;position:relative}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .map{background:#202A2A}}
+.map svg{display:block;width:100%;height:auto}
+.chatbtn{position:absolute;right:10px;bottom:10px;border:0;background:var(--panel);color:#fff;border-radius:999px;padding:8px 14px;font-weight:700;font-size:13px}
+.msgs{display:flex;flex-direction:column;gap:8px;min-height:180px;max-height:46vh;overflow:auto;padding:6px 0}
+.msg{max-width:78%;padding:9px 12px;border-radius:14px;font-size:14px}
+.msg.me{align-self:flex-end;background:var(--panel);color:#fff;border-bottom-right-radius:4px}
+.msg.them{align-self:flex-start;background:var(--bg);border-bottom-left-radius:4px}
+.qr{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.offer{border:2px solid var(--y);background:var(--card);border-radius:18px;padding:16px}
+.online{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:12px}
+.noti{padding:12px 0;border-top:1px solid var(--line);font-size:14px}
+.noti:first-child{border-top:0}
+/* ===== v4 photo styles ===== */
+.ph{background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#2A2852}
+.cover.ph::after{background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.5))}
+.promo.ph{background-size:cover;background-position:center}
+.promo.ph::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,16,44,.88) 0%,rgba(18,16,44,.55) 55%,rgba(18,16,44,.15) 100%)}
+.promo b,.promo span{position:relative;z-index:1}
+.cat .ic.ph{border:2px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.tile.phtile{padding:0;overflow:hidden}
+.tile.phtile .tileimg{display:block;height:92px;width:100%}
+.tile.phtile b,.tile.phtile span:not(.tileimg){padding:0 14px}
+.tile.phtile span:last-child{padding-bottom:14px}
+.tile .ic.ph{width:52px;height:52px}
+.mi .thumb.ph{width:78px;height:78px}
+.herophoto{border-radius:22px;min-height:210px;margin-top:14px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.herophoto::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,16,44,.1) 20%,rgba(18,16,44,.85))}
+.herophoto>div{position:relative;padding:18px;color:#fff}
+.herophoto h1{font-size:clamp(28px,7.5vw,36px);font-weight:800;letter-spacing:-.03em}
+.herophoto p{color:#E6E5F5;font-size:14px;margin-top:6px}
+.trackstrip{height:110px;border-radius:18px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.trackstrip::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.6))}
+.trackstrip span{position:relative;color:#fff;font-weight:700;padding:10px 14px;font-family:var(--disp);font-size:18px}
+
+/* ===== mobile fixes ===== */
+html,body{overflow-x:hidden}
+.menutabs{top:calc(env(safe-area-inset-top,0px) + var(--toph,58px))}
+.trackpanel{flex-wrap:wrap}
+@media (max-width:540px){
+  .wrap{padding:0 10px}
+  .top{gap:8px;padding:10px 0 8px}
+  .brand{font-size:26px}
+  .top .bell{margin-left:auto}
+  .seg{order:5;width:100%;margin-left:0}
+  .seg button{flex:1;padding:8px 2px;font-size:13px}
+  main{padding:4px 0 110px}
+  .h1{font-size:26px}
+  .vcard{width:78vw;max-width:280px}
+  .vlist .vcard{width:100%;max-width:none}
+  .trackpanel{flex-direction:column;align-items:flex-start;padding:16px}
+  .ring{margin:0 auto}
+  .addr .ln{max-width:72vw}
+  .promo{min-width:88%}
+  .promo b{font-size:20px}
+  .stats{gap:12px}
+  .cartbar{width:calc(100% - 20px)}
+  .kpi b{font-size:22px}
+  .opt2,.paym,.li,.mi{padding-left:12px;padding-right:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="shell">
+    <header class="top">
+      <span class="brand" aria-label="Race">race</span>
+      <div class="seg" role="group" aria-label="Switch app">
+        <button data-view="customer">Customer</button>
+        <button data-view="vendor">Vendor</button>
+        <button data-view="rider">Rider</button>
+        <button data-view="ops">Ops</button>
+      </div>
+      <button class="bell" id="bellBtn" aria-label="Notifications">&#128276;<span id="bellBadge"></span></button>
+      <button class="demo-btn" id="demoBtn">Demo</button>
+    </header>
+    <main id="app"></main>
+  </div>
+  <aside class="aside">
+    <div class="box">
+      <h3>Test it end to end</h3>
+      <ol>
+        <li>Open a restaurant, customise a meal, add it to cart.</li>
+        <li>Check out: pick address, payment, tip, promo code <b>RACE50</b>.</li>
+        <li>Switch to <b>Vendor</b> to accept and mark the order ready, or let it auto-accept.</li>
+        <li>Switch to <b>Rider</b> to grab the job. Watch the rider move on the map and chat with them.</li>
+        <li>On arrival, check items, copy the code, enter it in <b>Rider</b>, then rate.</li>
+        <li>Open <b>Ops</b> for live stats, leaderboard, issues and the business plan.</li>
+      </ol>
+      <p class="note">Use <b>Demo</b> for speed and the late-delivery test.</p>
+    </div>
+  </aside>
+</div>
+<div id="layer"></div>
+
+<script>
+/* ================= CONSTANTS ================= */
+const fmt = n => '\u20A6' + Math.round(n).toLocaleString('en-NG');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DELIVERY_FEE = 800, SERVICE_FEE = 100, ERRAND_FEE = 1000, COMP_CAP = 1500, GUARANTEE = 30;
+const HOME = {x:300, y:178};
+const IMG = {}; const IMGCREDITS = []; /*__IMAGES__*/
+const has = k => !!IMG[k];
+const phc = k => has(k) ? ' ph ph-' + k : '';
+(function(){ const st = document.createElement('style'); let css = '';
+  for(const k in IMG) css += '.ph-' + k + '{background-image:url("' + IMG[k] + '")}';
+  st.textContent = css; document.head.appendChild(st); })();
+
+const ZONES = [
+  {n:'Independence Layout', live:true},{n:'GRA', live:true},{n:'New Haven', live:true},
+  {n:'Trans-Ekulu', live:true},{n:'Achara Layout', live:true},
+  {n:'Abakpa Nike', live:false},{n:'Emene', live:false},{n:'Nsukka', live:false}
+];
+
+const CATS = {
+  food:{title:'Food', ic:'\uD83C\uDF72'}, pharmacy:{title:'Pharmacy', ic:'\uD83D\uDC8A'}, supermarket:{title:'Supermarket', ic:'\uD83D\uDED2'},
+  shopper:{title:'Personal shopper', ic:'\uD83E\uDDFA'}, general:{title:'Anything', ic:'\uD83D\uDCE6'}, artisans:{title:'Artisans', ic:'\uD83D\uDEE0\uFE0F'}
+};
+
+const OPTS = {
+  protein:[{n:'Choose protein', req:1, c:[['Chicken',0],['Beef',0],['Turkey',900],['Fish',700]]},
+           {n:'Add extras', multi:1, c:[['Fried plantain',500],['Coleslaw',400],['Moi moi',600],['Extra protein',1200]]}],
+  swallow:[{n:'Choose swallow', req:1, c:[['Fufu',0],['Garri (eba)',0],['Semo',0],['Pounded yam',500]]},
+           {n:'Add extras', multi:1, c:[['Extra meat',1000],['Stockfish',1200],['Extra swallow',500]]}],
+  suya:[{n:'Spice level', req:1, c:[['Mild',0],['Hot',0],['Very hot',0]]},{n:'Add', multi:1, c:[['Onions and cabbage',0],['Extra yaji',200]]}],
+  combo:[{n:'Size', req:1, c:[['Regular',0],['Large',1200]]},{n:'Drink', req:1, c:[['Cola 50cl',0],['Orange 50cl',0],['Water',0]]}],
+  shawarma:[{n:'Filling', req:1, c:[['Chicken',0],['Beef',0]]},{n:'Extras', multi:1, c:[['Extra sausage',500],['Cheese',700]]}]
+};
+
+const VENDORS = [
+  {id:'v1',cat:'food',name:"Mama Nkechi's Kitchen",em:'\uD83C\uDF72',bg:'linear-gradient(135deg,#E8642C,#B83A12)',rating:4.8,rc:1240,eta:'15\u201325',fee:800,tags:['Local','Swallow','Rice'],x:90,y:110,area:'Ogui Road',promo:'Free zobo on orders over \u20A66,000',
+   menu:[{s:'Rice',items:[{id:'m1',n:'Jollof rice',d:'Smoky party jollof',p:2500,o:'protein'},{id:'m2',n:'Fried rice',d:'Mixed veg and liver',p:2700,o:'protein'},{id:'m3',n:'Ofada rice and ayamase',d:'Local rice, green pepper stew',p:3200,o:'protein'}]},
+         {s:'Swallow and soups',items:[{id:'m4',n:'Ofe onugbu',d:'Bitterleaf soup, assorted meat',p:3000,o:'swallow'},{id:'m5',n:'Oha soup',d:'Oha leaves, cocoyam, stockfish',p:3200,o:'swallow'},{id:'m6',n:'Egusi soup',d:'Melon soup with spinach',p:2800,o:'swallow'}]},
+         {s:'Local delicacies',items:[{id:'m7',n:'Abacha and ugba',d:'African salad with garden egg',p:1800},{id:'m8',n:'Nkwobi',d:'Spicy cow foot in palm oil',p:3500},{id:'m9',n:'Okpa, 2 wraps',d:'Bambara nut pudding',p:1000}]},
+         {s:'Drinks',items:[{id:'m10',n:'Zobo, 50cl',d:'Chilled hibiscus',p:700},{id:'m11',n:'Bottled water',d:'75cl',p:300}]}]},
+  {id:'v2',cat:'food',name:"Ugwu's Grill",em:'\uD83C\uDF62',bg:'linear-gradient(135deg,#9C2F1F,#5C150B)',rating:4.7,rc:860,eta:'20\u201330',fee:800,tags:['Suya','Grill','Late night'],x:250,y:60,area:'New Haven',
+   menu:[{s:'Suya',items:[{id:'g1',n:'Beef suya, 300g',d:'Thin-sliced, charcoal grilled',p:2500,o:'suya'},{id:'g2',n:'Chicken suya',d:'Boneless thigh skewers',p:2800,o:'suya'},{id:'g3',n:'Kilishi pack',d:'Dried spiced beef',p:2000}]},
+         {s:'Grill',items:[{id:'g4',n:'Grilled croaker fish',d:'Whole fish, pepper sauce',p:5500},{id:'g5',n:'Asun',d:'Peppered goat meat',p:3000},{id:'g6',n:'Roasted plantain (boli)',d:'With groundnut',p:800}]}]},
+  {id:'v3',cat:'food',name:'Crunch Box',em:'\uD83C\uDF57',bg:'linear-gradient(135deg,#F2B705,#C77D00)',rating:4.5,rc:2100,eta:'10\u201320',fee:0,tags:['Chicken','Burgers','Fast food'],x:180,y:40,area:'Okpara Avenue',promo:'Free delivery',
+   menu:[{s:'Combos',items:[{id:'c1',n:'Chicken and chips combo',d:'2 pieces, chips, drink',p:4200,o:'combo'},{id:'c2',n:'Crunch burger combo',d:'Beef burger, chips, drink',p:4800,o:'combo'}]},
+         {s:'Wraps',items:[{id:'c3',n:'Shawarma',d:'Loaded, with sausage',p:2800,o:'shawarma'}]},
+         {s:'Sides',items:[{id:'c4',n:'Spicy wings, 6',d:'Hot glaze',p:3000},{id:'c5',n:'Large chips',d:'Salted fries',p:1500},{id:'c6',n:'Vanilla ice cream',d:'Single cup',p:1200}]}]},
+  {id:'v4',cat:'food',name:'Pastry Lane',em:'\uD83E\uDD50',bg:'linear-gradient(135deg,#8A5BB0,#4E2A72)',rating:4.6,rc:540,eta:'15\u201325',fee:800,tags:['Bakery','Snacks','Breakfast'],x:130,y:178,area:'Zik Avenue',
+   menu:[{s:'Bakery',items:[{id:'b1',n:'Meat pie',d:'Flaky, minced beef',p:900},{id:'b2',n:'Sausage roll',d:'Fresh from the oven',p:700},{id:'b3',n:'Doughnut, 2',d:'Sugar glazed',p:1000},{id:'b4',n:'Chocolate cake slice',d:'Rich and moist',p:2000}]},
+         {s:'Drinks',items:[{id:'b5',n:'Iced coffee',d:'Milk and caramel',p:1800},{id:'b6',n:'Fresh juice',d:'Pineapple or orange',p:1500}]}]},
+  {id:'v5',cat:'pharmacy',name:'Ogui Road Pharmacy',em:'\uD83D\uDC8A',bg:'linear-gradient(135deg,#1E8E4E,#0E5A2F)',rating:4.8,rc:410,eta:'15\u201325',fee:800,tags:['24 hours','Pharmacist on duty'],x:90,y:60,area:'Ogui Road',
+   menu:[{s:'Pain and fever',items:[{id:'p1',n:'Paracetamol 500mg, 24 tablets',d:'Fever and pain relief',p:600},{id:'p2',n:'Ibuprofen 400mg',d:'Pain and inflammation',p:900},{id:'p3',n:'ORS sachets, 5',d:'Rehydration',p:1000}]},
+         {s:'Prescription',items:[{id:'p4',n:'Antimalarial (artemether combo)',d:'Prescription required',p:3800,rx:1},{id:'p5',n:'Amoxicillin 500mg',d:'Prescription required',p:2200,rx:1}]},
+         {s:'Vitamins and care',items:[{id:'p6',n:'Vitamin C 1000mg',d:'30 tablets',p:2500},{id:'p7',n:'Hand sanitizer, 500ml',d:'70% alcohol',p:1500},{id:'p8',n:'Digital thermometer',d:'Fast read',p:3500}]}]},
+  {id:'v6',cat:'pharmacy',name:'CarePlus Pharmacy',em:'\uD83E\uDE7A',bg:'linear-gradient(135deg,#2B6CB0,#163E6E)',rating:4.6,rc:230,eta:'20\u201330',fee:800,tags:['Baby care','Skincare'],x:220,y:150,area:'Independence Layout',
+   menu:[{s:'Baby care',items:[{id:'q1',n:'Baby diapers, 40',d:'Size 3',p:7500},{id:'q2',n:'Baby wipes',d:'80 sheets',p:1800}]},
+         {s:'Everyday',items:[{id:'q3',n:'Plasters, 20',d:'Assorted sizes',p:800},{id:'q4',n:'Cough syrup',d:'100ml',p:2200},{id:'q5',n:'Sunscreen SPF50',d:'100ml',p:6500}]}]},
+  {id:'v7',cat:'supermarket',name:'Polo Park Superstore',em:'\uD83D\uDED2',bg:'linear-gradient(135deg,#3550C4,#1C2E80)',rating:4.7,rc:980,eta:'20\u201330',fee:800,tags:['Provisions','Household'],x:220,y:110,area:'Polo Park',promo:'\u20A61,000 off with WELCOME',
+   menu:[{s:'Breakfast',items:[{id:'s1',n:'Evaporated milk, 400g tin',d:'Full cream',p:3200},{id:'s2',n:'Cornflakes, 500g',d:'Breakfast cereal',p:3800},{id:'s3',n:'Sliced bread',d:'Family loaf',p:1600},{id:'s4',n:'Eggs, crate of 30',d:'Fresh farm eggs',p:5200}]},
+         {s:'Staples',items:[{id:'s5',n:'Instant noodles, carton of 40',d:'Chicken flavour',p:9800},{id:'s6',n:'Spaghetti, 500g',d:'Long pasta',p:1300},{id:'s7',n:'Rice, 5kg',d:'Parboiled long grain',p:9500}]},
+         {s:'Household',items:[{id:'s8',n:'Detergent, 2kg',d:'Washing powder',p:4500},{id:'s9',n:'Toilet roll, 10',d:'Soft 2-ply',p:4200},{id:'s10',n:'Bottled water, 12',d:'75cl bottles',p:2400}]}]},
+  {id:'v8',cat:'supermarket',name:'Kenyatta Mini Mart',em:'\uD83C\uDFEA',bg:'linear-gradient(135deg,#0F766E,#08433E)',rating:4.4,rc:310,eta:'15\u201325',fee:800,tags:['Drinks','Snacks'],x:40,y:150,area:'Kenyatta Street',
+   menu:[{s:'Drinks',items:[{id:'k1',n:'Soft drinks, 6 pack',d:'Assorted 50cl',p:2700},{id:'k2',n:'Malt drink, 6 pack',d:'33cl cans',p:3600}]},
+         {s:'Snacks',items:[{id:'k3',n:'Plantain chips',d:'Large pack',p:800},{id:'k4',n:'Chin chin',d:'500g jar',p:1500},{id:'k5',n:'Groundnut, roasted',d:'Bottle',p:1200}]}]}
+];
+
+const SHOP_TYPES = {
+  market:{l:'Open market', d:'Perishable foodstuff: tomatoes, pepper, yam, fish, meat', fee:1500, where:'Ogbete Main Market'},
+  pharmacy:{l:'Pharmacy', d:'Drugs and health items', fee:1000, where:'Ogui Road'},
+  provisions:{l:'Supermarket', d:'Provisions and household items', fee:1000, where:'Polo Park area'},
+  equipment:{l:'Equipment store', d:'Electronics, tools, small appliances', fee:2000, where:'Kenyatta Street'}
+};
+const TRADES = {plumber:'Plumber', electrician:'Electrician', ac:'AC technician', tailor:'Tailor', carpenter:'Carpenter', cleaner:'Home cleaner'};
+const TRADE_IC = {plumber:'\uD83D\uDEB0', electrician:'\u26A1', ac:'\u2744\uFE0F', tailor:'\uD83E\uDDF5', carpenter:'\uD83E\uDE9A', cleaner:'\uD83E\uDDF9'};
+const PROMOS = {
+  RACE50:{d:'50% off delivery', apply:(t) => Math.round(t.delivery * 0.5)},
+  WELCOME:{d:'\u20A61,000 off orders over \u20A65,000', apply:(t) => t.items >= 5000 ? 1000 : 0, min:'Add \u20A65,000 of items to use WELCOME.'}
+};
+const SPEEDS = [
+  {v:1, l:'Fast demo', d:'1 second = 1 minute. A delivery takes about 30 seconds.'},
+  {v:0.25, l:'Slow demo', d:'4 seconds = 1 minute. About 2 minutes per delivery.'},
+  {v:1/60, l:'Real time', d:'Real minutes, as customers would see it.'}
+];
+
+function fresh(){
+  return {
+    view:'customer', screen:'home', param:null, opsTab:'overview', q:'', filter:'all',
+    cart:[], rxFile:'', wallet:30000, credits:0, orders:[], seq:201, err:'', favs:['v1'],
+    addresses:[{id:'ad1',label:'Home',line:'12 Zik Avenue, Uwani',zone:'Independence Layout'},{id:'ad2',label:'Work',line:'Ministry of Housing, Okpara Avenue',zone:'GRA'}],
+    addrId:'ad1',
+    co:{pay:'wallet', tip:'later', promo:'', promoOk:'', sched:'now', note:''}, subs:{}, plus:false, tickets:[], tseq:1,
+    shop:{types:{market:true}, lists:{}, budget:''}, gen:{what:'', from:'', budget:''}, book:{issue:''},
+    rate:{stars:0, tags:[], text:''}, confirm:{},
+    riders:[
+      {id:'r1',name:'Chidi Okeke',role:'Rider',rating:4.9,count:212,note:'Independence Layout'},
+      {id:'r2',name:'Ngozi Eze',role:'Rider',rating:4.8,count:167,note:'GRA'},
+      {id:'r3',name:'Emeka Udeh',role:'Rider',rating:4.6,count:98,note:'New Haven'},
+      {id:'r4',name:'Amaka Nwosu',role:'Shopper and rider',rating:4.7,count:141,note:'Ogbete market specialist'}],
+    artisans:[
+      {id:'a1',trade:'plumber',name:'Ikenna Obi',rating:4.9,count:88,fee:5000},{id:'a2',trade:'plumber',name:'Samuel Agu',rating:4.5,count:41,fee:4000},
+      {id:'a3',trade:'electrician',name:'Uche Nnamdi',rating:4.8,count:120,fee:5000},{id:'a4',trade:'electrician',name:'Kelechi Ani',rating:4.4,count:37,fee:3500},
+      {id:'a5',trade:'ac',name:'Tobenna Ezeh',rating:4.7,count:64,fee:7000},{id:'a6',trade:'tailor',name:'Adaeze Okafor',rating:4.9,count:153,fee:3000},
+      {id:'a7',trade:'carpenter',name:'Joseph Mba',rating:4.6,count:52,fee:4500},{id:'a8',trade:'cleaner',name:'Blessing Onu',rating:4.8,count:96,fee:6000}],
+    reviews:[
+      {who:'r1',stars:5,text:'Came in 19 minutes, everything sealed.',by:'Ifeoma'},{who:'a6',stars:5,text:'Fixed my gown same day. Neat work.',by:'Chioma'},
+      {who:'a1',stars:5,text:'Found the leak fast, fair price.',by:'Obinna'},{who:'r2',stars:4,text:'Polite, one minute late but called me.',by:'Tunde'}],
+    ops:{comp:0, refunds:0, issues:[], released:0},
+    earn:{}, vendorSales:{}, riderMe:'r1', online:true, vendorMe:'v1',
+    notes:[], unread:0,
+    txns:[{l:'Opening balance', v:30000}],
+    demo:{speed:1, delay:false, notify:true}
+  };
+}
+
+/* ================= STATE ================= */
+const KEY = 'race-demo-v3';
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)) || fresh(); } catch(e){ S = fresh(); }
+if(!S.demo || !S.addresses || !S.tickets) S = fresh();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+const app = document.getElementById('app');
+const layer = document.getElementById('layer');
+let sheet = null; // transient UI sheet state
+
+/* ================= HELPERS ================= */
+const addr = () => S.addresses.find(a => a.id === S.addrId) || S.addresses[0];
+const zoneLive = () => (ZONES.find(z => z.n === addr().zone) || {}).live;
+const find = id => S.orders.find(o => o.id === id);
+const V = id => VENDORS.find(v => v.id === id);
+const person = o => o.type === 'service' ? S.artisans.find(a => a.id === o.personId) : S.riders.find(r => r.id === o.personId);
+const anyPerson = id => S.riders.find(r => r.id === id) || S.artisans.find(a => a.id === id);
+const initials = n => n.split(' ').map(x => x[0]).join('').slice(0,2);
+const first = n => n.split(' ')[0];
+const starStr = r => '\u2605'.repeat(Math.round(r)) + '\u2606'.repeat(5 - Math.round(r));
+const simMin = o => (Date.now() - o.start) / 1000 * o.speed;
+const clock = m => { const s = Math.max(0, Math.floor(m*60)); return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); };
+const cartCount = () => S.cart.reduce((a,c) => a + c.qty, 0);
+const cartTotal = () => S.cart.reduce((a,c) => a + c.price*c.qty, 0);
+const isOpen = o => !['completed','cancelled'].includes(o.status);
+const activeOrders = () => S.orders.filter(isOpen);
+const FORM_SCREENS = ['shopper','general','book','confirm','rate','cart','checkout','search'];
+const PLUS_PRICE = 1500, PLUS_MIN = 3000;
+const feeFor = (vid, sub) => (S.plus && sub >= PLUS_MIN) ? 0 : V(vid).fee;
+const SUBPREF = {ask:'Ask me first', best:'Best match, same price or less', none:"Don't substitute, refund it"};
+
+function go(screen, param){ S.screen = screen; S.param = param ?? null; S.err = ''; save(); render(); window.scrollTo(0,0); }
+function setView(v){
+  S.view = v;
+  if(v === 'rider'){ const w = S.orders.find(o => o.status === 'confirmed' && o.type !== 'service') || S.orders.find(o => isOpen(o) && o.riderAccepted && o.type !== 'service'); if(w) S.riderMe = w.personId;
+    const sv = S.orders.find(o => o.status === 'confirmed' && o.type === 'service'); if(sv) S.riderMe = sv.personId; }
+  if(v === 'vendor'){ const w = S.orders.find(o => isOpen(o) && o.vendorId); if(w) S.vendorMe = w.vendorId; }
+  save(); render(); window.scrollTo(0,0);
+}
+function toast(msg, keep=true){
+  const t = document.createElement('div');
+  t.className = 'toast'; t.setAttribute('role','status'); t.innerHTML = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), 4200);
+  if(keep){ S.notes.unshift({t:msg, at:Date.now()}); S.notes = S.notes.slice(0,40); S.unread++; bell(); }
+}
+function bell(){ const b = document.getElementById('bellBadge'); b.innerHTML = S.unread ? `<span class="badge">${S.unread}</span>` : ''; }
+function txn(l, v){ S.txns.unshift({l, v}); }
+
+function stagesFor(o){
+  if(o.type === 'service') return [{at:0,l:'Artisan accepted your job'},{at:3,l:'Artisan on the way'},{at:o.eta,l:'Artisan has arrived'}];
+  if(o.type === 'delivery'){
+    const v = V(o.vendorId);
+    const prep = o.cat === 'food' ? 'Preparing your food' : o.cat === 'pharmacy' ? 'Pharmacist packing your order' : 'Picking your items';
+    return [{at:0,l:'Waiting for ' + v.name + ' to accept'},{at:1.5,flag:'accepted',l:prep},{at:10,flag:'ready',l:'Packed and sealed, photo uploaded'},
+            {at:13,l:'Rider picked up, on the way'},{at:o.eta,l:'Arrived at your door'}];
+  }
+  return [{at:0,l:'Order confirmed'},{at:2,l:'Shopper buying your items'},{at:11,l:'Items checked against your list, photo uploaded'},
+          {at:14,l:'Rider on the way'},{at:o.eta,l:'Arrived at your door'}];
+}
+function guaranteeState(o){
+  if(o.status === 'cancelled') return {cls:'r', l:'Cancelled, refunded'};
+  if(o.compensated) return {cls:'r', l:'Late \u2014 ' + fmt(o.compensated) + ' credited'};
+  if(o.notified) return {cls:'y', l:'Delay notified'};
+  if(o.status !== 'active') return {cls:'g', l:'Within guarantee'};
+  if(simMin(o) < 0) return {cls:'', l:'Scheduled'};
+  return {cls:'g', l:'On time'};
+}
+const vendorPos = o => o.vendorId ? V(o.vendorId) : o.type === 'shopper' ? {x:40,y:110} : {x:180,y:110};
+
+/* ================= ORDERS ================= */
+function makeOrder(f){
+  const delay = S.demo.delay, a = addr();
+  const o = Object.assign({
+    zone:a.zone, address:a.line, start:Date.now() + (f.later ? 8000 : 0), speed:S.demo.speed,
+    delay, notify:S.demo.notify, eta: delay ? 38 : (f.type === 'service' ? 24 : 26),
+    stage:0, status:'active', events:[], notified:false, compensated:0, chat:[],
+    code:String(Math.floor(1000 + Math.random()*9000)), refund:0, missing:[], rated:false,
+    accepted:false, ready:false, riderAccepted:f.type === 'service', skipped:[], tip:0, discount:0
+  }, f, {id:'RC' + (S.seq++)});
+  o.events.push({k:'info', t:'Paid ' + fmt(o.total) + ' into Race escrow by ' + payLabel(o.pay) + '. Nobody is paid until you confirm.'});
+  S.orders.unshift(o);
+  return o;
+}
+const payLabel = p => ({wallet:'Race wallet', card:'card', transfer:'bank transfer'}[p] || 'Race wallet');
+function charge(total, method='wallet'){
+  if(method !== 'wallet'){ txn('Paid by ' + payLabel(method) + ' into escrow', 0); return true; }
+  const fromCredit = Math.min(S.credits, total), fromWallet = total - fromCredit;
+  if(fromWallet > S.wallet) return false;
+  S.credits -= fromCredit; S.wallet -= fromWallet;
+  if(fromCredit) txn('Race credit used', -fromCredit);
+  txn('Paid into escrow', -fromWallet);
+  return true;
+}
+const randRider = () => S.riders[Math.floor(Math.random()*3)].id;
+
+/* ================= TICK ================= */
+function tick(){
+  let changed = false;
+  for(const o of S.orders){
+    if(o.status !== 'active') continue;
+    const m = simMin(o);
+    if(m < 0) continue;
+    if(!o.riderAccepted && m >= 2.5){ o.riderAccepted = true; o.events.push({k:'info', t:person(o).name + ' was assigned automatically.'}); changed = true; }
+    if(o.type === 'delivery' && !o.accepted && m >= 1.5){ o.accepted = true; }
+    if(o.type === 'delivery' && !o.ready && m >= 10){ o.ready = true; }
+    if(o.subPref && o.cat === 'supermarket' && !o.subAsk && m >= 4 && o.items.length){
+      const it = o.items[0];
+      if(o.subPref === 'ask'){ o.subAsk = {state:'pending'}; o.events.push({k:'warn', t:it.name + ' is out of stock. The shopper found a similar brand at the same price and is waiting for your OK.'}); toast('<b>Out of stock:</b> ' + esc(it.name) + '. Approve a swap or get a refund.'); }
+      else if(o.subPref === 'best'){ o.subAsk = {state:'approved'}; it.name += ' (swapped for a similar brand, same price)'; o.events.push({k:'info', t:'Out of stock item swapped for the closest match at the same price, as you asked.'}); }
+      else { o.subAsk = {state:'rejected'}; refundItem(o, 0, 'out of stock, you chose no substitutes'); }
+      changed = true;
+    }
+    if(o.subAsk && o.subAsk.state === 'pending' && o.stage >= 2){ o.subAsk.state = 'rejected'; refundItem(o, 0, 'no reply to the swap request, so we never substituted'); changed = true; }
+    const st = stagesFor(o);
+    let idx = o.stage;
+    while(idx + 1 < st.length){ const s = st[idx+1]; if(m >= s.at || (s.flag && o[s.flag])) idx++; else break; }
+    if(idx > o.stage){
+      for(let i = o.stage + 1; i <= idx; i++) o.events.push({k:'info', t:st[i].l});
+      o.stage = idx; changed = true;
+      if(idx === st.length - 1){ o.status = 'arrived'; o.arrivedAt = m; toast('<b>' + o.id + ' has arrived.</b> Check it before you release payment.'); }
+    }
+    if(o.delay && o.notify && !o.notified && m >= 18){
+      o.notified = true; changed = true;
+      o.events.push({k:'warn', t:'Heavy traffic on Ogui Road. New arrival time is ' + o.eta + ' minutes. You were told before 30 minutes, so the guarantee moves to the new time.'});
+      o.chat.push({me:false, t:'Sorry, heavy traffic at Ogui Road junction. I\'ll be there in about ' + (o.eta - Math.round(m)) + ' minutes.'});
+      toast('<b>Delay notice for ' + o.id + '.</b> New arrival time ' + o.eta + ' min.');
+    }
+    if(o.delay && !o.notify && !o.compensated && m > GUARANTEE){
+      const comp = Math.min(Math.max(o.deliveryFee, 800), COMP_CAP);
+      o.compensated = comp; S.credits += comp; S.ops.comp += comp; changed = true;
+      S.ops.issues.unshift({id:o.id, kind:'Late, no warning', amt:comp, note:'Passed 30 minutes without a delay notice. Credit issued automatically.'});
+      txn('Late delivery credit ' + o.id, comp);
+      o.events.push({k:'bad', t:'We passed 30 minutes without warning you. ' + fmt(comp) + ' Race credit added to your account.'});
+      toast('<b>' + o.id + ' is late.</b> ' + fmt(comp) + ' credit added automatically.');
+    }
+  }
+  if(changed){ save(); if(!(S.view === 'customer' && FORM_SCREENS.includes(S.screen)) && !(sheet && sheet.kind === 'item')) render(); }
+  live();
+}
+
+function refundItem(o, i, why){
+  const it = o.items[i]; if(it.removed) return;
+  const amt = it.price * it.qty; it.removed = true;
+  o.refund = (o.refund||0) + amt; S.wallet += amt; S.ops.refunds += amt; txn('Refund ' + o.id + ', ' + it.name, amt);
+  o.events.push({k:'ok', t:fmt(amt) + ' refunded for ' + it.name + ' (' + why + ').'});
+}
+function answerSub(id, ok){
+  const o = find(id); if(!o.subAsk || o.subAsk.state !== 'pending') return;
+  if(ok){ o.subAsk.state = 'approved'; o.items[0].name += ' (swapped for a similar brand, same price)'; o.events.push({k:'info', t:'You approved the swap.'}); }
+  else { o.subAsk.state = 'rejected'; refundItem(o, 0, 'you declined the swap'); }
+  save(); render();
+}
+function routes(o){
+  const v = vendorPos(o);
+  return {a:`M40 30 V${v.y} H${v.x}`, b:`M${v.x} ${v.y} H${HOME.x} V${HOME.y}`};
+}
+function live(){
+  document.querySelectorAll('[data-live]').forEach(el => {
+    const o = find(el.dataset.live); if(!o) return;
+    const raw = simMin(o);
+    const m = o.status === 'active' ? raw : (o.arrivedAt ?? 0);
+    const limit = o.notified ? o.eta : GUARANTEE, left = limit - m;
+    const k = el.dataset.kind;
+    if(k === 'clock'){
+      el.textContent = o.status === 'cancelled' ? 'Cancelled' : o.status !== 'active' ? 'Arrived' : raw < 0 ? 'Soon' : (left >= 0 ? clock(left) : '+' + clock(-left));
+    } else if(k === 'ring'){
+      const C = 339.29, frac = Math.min(1, Math.max(0, m/limit));
+      el.style.strokeDashoffset = String(C*(1-frac));
+      el.style.stroke = left < 0 && o.status === 'active' ? '#FF6B6B' : '#FFC93C';
+    } else if(k === 'label'){
+      el.textContent = o.status !== 'active' ? (o.status === 'cancelled' ? '' : 'in ' + Math.round(m) + ' min') : raw < 0 ? 'scheduled' : (left >= 0 ? 'left on guarantee' : 'over time');
+    } else if(k === 'rider'){
+      const pa = document.getElementById('ra-' + o.id), pb = document.getElementById('rb-' + o.id);
+      if(!pa || !pb) return;
+      const pickAt = o.type === 'service' ? 3 : (o.type === 'delivery' ? 13 : 14);
+      let pt;
+      if(o.status !== 'active'){ pt = {x:HOME.x, y:HOME.y}; }
+      else if(m < pickAt){ const f = Math.max(0, m/pickAt); pt = pa.getPointAtLength(pa.getTotalLength()*f); }
+      else { const f = Math.min(1, (m - pickAt)/(o.eta - pickAt)); pt = pb.getPointAtLength(pb.getTotalLength()*f); }
+      el.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+    }
+  });
+}
+
+/* ================= RENDER ================= */
+function render(){
+  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === S.view)));
+  bell();
+  if(S.view === 'rider') app.innerHTML = riderView();
+  else if(S.view === 'vendor') app.innerHTML = vendorView();
+  else if(S.view === 'ops') app.innerHTML = opsView();
+  else app.innerHTML = customerView();
+  renderSheet();
+  live();
+  const tb = document.querySelector('.top'); if(tb) document.documentElement.style.setProperty('--toph', tb.offsetHeight + 'px');
+}
+const backBtn = (to, param) => `<button class="back" onclick="go('${to}'${param?`,'${param}'`:''})">\u2190 Back</button>`;
+
+function customerView(){
+  const s = S.screen, map = {home:homeScreen, search:searchScreen, cat:catScreen, vendor:vendorScreen, cart:cartScreen, checkout:checkoutScreen,
+    shopper:shopperScreen, general:generalScreen, artisans:artisansScreen, trade:tradeScreen, book:bookScreen, track:trackScreen,
+    confirm:confirmScreen, rate:rateScreen, orders:ordersScreen, account:accountScreen, favs:favsScreen, promises:promisesScreen, tickets:ticketsScreen};
+  const body = (map[s] || homeScreen)(S.param);
+  const showBar = ['home','cat','vendor','search','favs'].includes(s) && S.cart.length;
+  const bar = showBar ? `<div class="cartbar"><button class="btn dark" onclick="go('cart')"><span>View cart, ${cartCount()} item${cartCount()>1?'s':''}</span><span>${fmt(cartTotal())}</span></button></div>` : '';
+  const act = activeOrders().length;
+  const tab = ['orders','track','confirm','rate'].includes(s) ? 'orders' : s === 'account' ? 'account' : s === 'search' ? 'search' : 'home';
+  return body + bar + `<nav class="nav" aria-label="Customer">
+    <button aria-current="${tab==='home'?'page':'false'}" onclick="go('home')"><span class="i">\u2302</span>Home</button>
+    <button aria-current="${tab==='search'?'page':'false'}" onclick="go('search')"><span class="i">\u2315</span>Search</button>
+    <button aria-current="${tab==='orders'?'page':'false'}" onclick="go('orders')"><span class="i">\u23F1</span><span>Orders${act?`<span class="badge">${act}</span>`:''}</span></button>
+    <button aria-current="${tab==='account'?'page':'false'}" onclick="go('account')"><span class="i">\u263A</span>Account</button></nav>`;
+}
+
+function vcard(v){
+  const fav = S.favs.includes(v.id);
+  return `<div class="vcard" role="button" tabindex="0" onclick="go('vendor','${v.id}')" onkeydown="if(event.key==='Enter')go('vendor','${v.id}')">
+    <div class="cover${phc(v.id)}" style="${has(v.id)?'':'background:'+v.bg}"><span aria-hidden="true">${has(v.id)?'':v.em}</span>
+      ${v.promo?`<span class="tagpill">${esc(v.promo)}</span>`:''}
+      <button class="fav" aria-label="${fav?'Remove from':'Add to'} favourites" onclick="event.stopPropagation();toggleFav('${v.id}')">${fav?'\u2665':'\u2661'}</button>
+      <span class="eta">${v.eta} min</span></div>
+    <div class="vmeta"><b>${esc(v.name)}</b><div class="small muted"><span><span class="stars">\u2605</span> ${v.rating} (${v.rc.toLocaleString()})</span><span>${v.fee?fmt(v.fee)+' delivery':'Free delivery'}</span><span>${esc(v.tags.slice(0,2).join(', '))}</span></div></div></div>`;
+}
+function toggleFav(id){ S.favs = S.favs.includes(id) ? S.favs.filter(x=>x!==id) : [...S.favs, id]; save(); render(); }
+
+function addrBar(){
+  const a = addr();
+  return `<button class="addr" onclick="openSheet({kind:'addr'})"><span style="font-size:20px">\uD83D\uDCCD</span><div style="min-width:0"><div class="lbl">Deliver to ${esc(a.label)}</div><div class="ln">${esc(a.line)}, ${esc(a.zone)} \u25BE</div></div></button>`;
+}
+
+function homeScreen(){
+  const act = activeOrders()[0];
+  const actCard = act ? `<button class="card row" style="width:100%;text-align:left;margin-top:14px;border-color:var(--y);border-width:2px" onclick="go('track','${act.id}')">
+      <div style="flex:1;min-width:0"><div class="small muted">${act.id}, ${esc(act.title)}</div><div class="b">${esc(simMin(act)<0?'Scheduled':stagesFor(act)[act.stage].l)}</div></div>
+      <div style="text-align:right"><div class="b" style="font-family:var(--disp);font-size:22px;font-variant-numeric:tabular-nums" data-live="${act.id}" data-kind="clock">--:--</div><div class="small muted">Track</div></div></button>` : '';
+  const needsRate = S.orders.find(o => o.status === 'completed' && !o.rated);
+  const rateBanner = needsRate ? `<div class="banner card" style="margin-top:12px"><div><b>How was ${esc(person(needsRate).name)}?</b><div class="small muted">Ratings decide who gets jobs first.</div></div><button class="btn-sm" onclick="go('rate','${needsRate.id}')">Rate</button></div>` : '';
+  const cats = Object.entries(CATS).map(([k,c]) => {
+    const to = ['food','pharmacy','supermarket'].includes(k) ? `go('cat','${k}')` : `go('${k}')`;
+    return `<button class="cat" onclick="${to}"><span class="ic${phc('cat_'+k)}" aria-hidden="true">${has('cat_'+k)?'':c.ic}</span>${c.title}</button>`;
+  }).join('');
+  const fastest = VENDORS.filter(v => v.cat === 'food').sort((a,b) => parseInt(a.eta) - parseInt(b.eta));
+  const stores = VENDORS.filter(v => v.cat !== 'food');
+  return `${addrBar()}
+  ${zoneLive() ? '' : `<div class="event warn">Race is live in five Enugu areas first so we can keep the 30-minute promise. ${esc(addr().zone)} is next. <button class="btn-sm" onclick="toast('You\\'re on the ${esc(addr().zone)} waitlist.')">Join waitlist</button></div>`}
+  ${has('hero') ? `<div class="herophoto ph ph-hero"><div><h1>What do you need in the next 30 minutes?</h1><p>Food, drugs, groceries and trusted artisans across Enugu.</p></div></div>` : ''}
+  <button class="search" onclick="go('search')">\u2315 <span>Search jollof, paracetamol, suya\u2026</span></button>
+  ${actCard}${rateBanner}
+  <div class="promos">
+    <button class="promo${phc('promo1')}" style="background-color:#1C1A3A;${has('promo1')?'':'background-image:linear-gradient(135deg,#1C1A3A,#3B3970)'}" onclick="S.co.promo='RACE50';save();toast('RACE50 will apply at checkout.',false)"><b>Half-price delivery all week</b><span>On every order in the launch areas.</span><span class="code-pill">RACE50</span>${has('promo1')?'':'<span class="em">\uD83D\uDEF5</span>'}</button>
+    <button class="promo${phc('promo2')}" style="background-color:#9C2F1F;${has('promo2')?'':'background-image:linear-gradient(135deg,#E8642C,#9C2F1F)'}" onclick="S.co.promo='WELCOME';save();toast('WELCOME will apply at checkout.',false)"><b>\u20A61,000 off your first big shop</b><span>Orders over \u20A65,000.</span><span class="code-pill">WELCOME</span>${has('promo2')?'':'<span class="em">\uD83D\uDED2</span>'}</button>
+    <button class="promo${phc('promo3')}" style="background-color:#0E5A2F;${has('promo3')?'':'background-image:linear-gradient(135deg,#1E8E4E,#0E5A2F)'}" onclick="go('artisans')"><b>A plumber at your door in 30 minutes</b><span>Vetted, rated, paid only when you're happy.</span>${has('promo3')?'':'<span class="em">\uD83D\uDEB0</span>'}</button>
+  </div>
+  <div class="sec"><div class="cats">${cats}</div></div>
+  <button class="promise" style="width:100%;border:0;text-align:left;color:#fff" onclick="go('promises')"><div class="big">30</div><p><b style="color:#fff">minutes or we tell you why.</b> Shop prices with no markup, every fee shown up front, and nobody gets paid until you confirm. <u>See all our promises</u></p></button>
+  <div class="sec"><div class="sec-h"><h2>Fastest near you</h2><button class="btn-sm" onclick="go('cat','food')">See all</button></div><div class="vcards">${fastest.map(vcard).join('')}</div></div>
+  <div class="sec"><div class="sec-h"><h2>Pharmacies and stores</h2></div><div class="vcards">${stores.map(vcard).join('')}</div></div>
+  <div class="sec"><div class="sec-h"><h2>More ways to use Race</h2></div><div class="tiles">
+    <button class="tile${has('cat_shopper')?' phtile':''}" onclick="go('shopper')">${has('cat_shopper')?'<span class="tileimg ph ph-cat_shopper"></span>':'<span class="ic">\uD83E\uDDFA</span>'}<b>Personal shopper</b><span>We shop Ogbete market for you</span></button>
+    <button class="tile${has('cat_general')?' phtile':''}" onclick="go('general')">${has('cat_general')?'<span class="tileimg ph ph-cat_general"></span>':'<span class="ic">\uD83D\uDCE6</span>'}<b>Anything else</b><span>Equipment, foodstuff, any purchase</span></button>
+    <button class="tile wide" onclick="go('artisans')"><span class="ic${phc('cat_artisans')}">${has('cat_artisans')?'':'\uD83D\uDEE0\uFE0F'}</span><div style="flex:1"><b>Artisans</b><br><span>Plumbers, electricians, tailors and more</span></div><span class="muted">\u203A</span></button></div></div>
+  ${IMGCREDITS.length ? `<p class="note" style="margin-top:18px">Photos: free-licence images from Openverse and others. <button class="btn-sm" onclick="openSheet({kind:'credits'})">Photo credits</button></p>` : ''}`;
+}
+
+function searchScreen(){
+  const q = S.q.trim().toLowerCase();
+  let res = '';
+  if(q){
+    const vs = VENDORS.filter(v => (v.name + ' ' + v.tags.join(' ')).toLowerCase().includes(q));
+    const items = [];
+    VENDORS.forEach(v => v.menu.forEach(sec => sec.items.forEach(it => { if((it.n + ' ' + it.d).toLowerCase().includes(q)) items.push({v, it}); })));
+    res = (vs.length ? `<div class="sec"><div class="sec-h"><h2>Places</h2></div><div class="vlist">${vs.map(vcard).join('')}</div></div>` : '') +
+      (items.length ? `<div class="sec"><div class="sec-h"><h2>Dishes and products</h2></div><div class="list">${items.slice(0,20).map(({v,it}) => `
+        <div class="mi"><div class="thumb${phc(it.id)}" style="${has(it.id)?'':'background:'+v.bg}">${has(it.id)?'':v.em}</div><div class="grow"><div class="name">${esc(it.n)}</div><div class="d">${esc(v.name)}</div><div class="price">${fmt(it.p)}</div></div>
+        <button class="add" onclick="tapItem('${v.id}','${it.id}')">Add</button></div>`).join('')}</div></div>` : '') ||
+      `<div class="card sec"><p>Nothing matches \u201C${esc(S.q)}\u201D. Try a dish like jollof, or use <b>Anything else</b> and a rider will find it.</p><div style="margin-top:10px"><button class="btn" onclick="S.gen.what=S.q;go('general')">Ask a rider to find it</button></div></div>`;
+  } else {
+    res = `<div class="sec"><div class="sec-h"><h2>Popular searches</h2></div><div class="tags">${['Jollof','Suya','Shawarma','Paracetamol','Eggs','Diapers','Okpa'].map(t => `<button class="tag" onclick="S.q='${t}';save();render()">${t}</button>`).join('')}</div></div>`;
+  }
+  return `<h1 class="h1">Search</h1>
+    <div class="search"><span>\u2315</span><input id="q" value="${esc(S.q)}" placeholder="Restaurants, dishes, drugs, groceries" aria-label="Search" oninput="S.q=this.value;save();clearTimeout(window._qt);window._qt=setTimeout(()=>{render();const e=document.getElementById('q');e.focus();e.setSelectionRange(e.value.length,e.value.length)},350)"></div>${res}`;
+}
+
+function catScreen(cat){
+  let vs = VENDORS.filter(v => v.cat === cat);
+  if(S.filter === 'free') vs = vs.filter(v => !v.fee);
+  if(S.filter === 'top') vs = [...vs].sort((a,b) => b.rating - a.rating);
+  if(S.filter === 'fast') vs = vs.filter(v => parseInt(v.eta) <= 15);
+  const f = [['all','All'],['top','Top rated'],['fast','Under 20 min'],['free','Free delivery']].map(([k,l]) => `<button class="tag" aria-pressed="${S.filter===k}" onclick="S.filter='${k}';save();render()">${l}</button>`).join('');
+  return `${backBtn('home')}<h1 class="h1">${CATS[cat].title}</h1><div class="filters">${f}</div>
+    <div class="vlist">${vs.length ? vs.map(vcard).join('') : '<div class="card"><p>No places match this filter. Try All.</p></div>'}</div>`;
+}
+
+function favsScreen(){
+  const vs = VENDORS.filter(v => S.favs.includes(v.id));
+  return `${backBtn('account')}<h1 class="h1">Favourites</h1><div class="vlist sec">${vs.length ? vs.map(vcard).join('') : '<div class="card"><p>Tap the heart on any restaurant or store to save it here.</p></div>'}</div>`;
+}
+
+function lineQty(key){ return S.cart.filter(c => c.itemId === key).reduce((a,c)=>a+c.qty,0); }
+function findItem(vid, iid){ const v = V(vid); for(const s of v.menu) for(const it of s.items) if(it.id === iid) return it; }
+function tapItem(vid, iid){
+  const it = findItem(vid, iid);
+  sheet = {kind:'item', vid, iid, sel:{}, qty:1, note:''};
+  if(!it.o){ addLine(vid, it, [], 1, ''); sheet = null; toast('Added ' + esc(it.n) + '.', false); render(); return; }
+  renderSheet();
+}
+function addLine(vid, it, choices, qty, note){
+  const extra = choices.reduce((a,c) => a + c[1], 0);
+  const label = choices.map(c => c[0]).join(', ');
+  const key = it.id + '|' + label + '|' + note;
+  let line = S.cart.find(c => c.key === key);
+  if(line) line.qty += qty;
+  else S.cart.push({key, vid, itemId:it.id, name:it.n, opts:label, note, price:it.p + extra, qty, rx:!!it.rx});
+  save();
+}
+function cartLine(key, d){ const l = S.cart.find(c => c.key === key); if(!l) return; l.qty += d; if(l.qty <= 0) S.cart = S.cart.filter(c => c.key !== key); save(); render(); }
+
+function vendorScreen(vid){
+  const v = V(vid); if(!v) return homeScreen();
+  const fav = S.favs.includes(v.id);
+  const tabs = v.menu.map((s,i) => `<button class="tag" onclick="document.getElementById('sec-${i}').scrollIntoView({behavior:'smooth',block:'start'})">${esc(s.s)}</button>`).join('');
+  const secs = v.menu.map((s,i) => `<div class="sec" id="sec-${i}" style="scroll-margin-top:120px"><div class="sec-h"><h2>${esc(s.s)}</h2></div><div class="list">${s.items.map(it => {
+    const q = lineQty(it.id);
+    return `<div class="mi"><div class="thumb${phc(it.id)}" style="${has(it.id)?'':'background:'+v.bg}" aria-hidden="true">${has(it.id)?'':v.em}</div><div class="grow">
+      <div class="name">${esc(it.n)} ${it.rx?'<span class="chip r">Prescription</span>':''}</div><div class="d">${esc(it.d)}</div>
+      <div class="price">${fmt(it.p)}${it.o?' <span class="small muted">+ options</span>':''}</div></div>
+      <button class="add" onclick="tapItem('${v.id}','${it.id}')">${q?'Add (' + q + ')':'Add'}</button></div>`;
+  }).join('')}</div></div>`).join('');
+  return `<div class="vhead"><div class="cover${phc(v.id)}" style="${has(v.id)?'':'background:'+v.bg}"><span aria-hidden="true">${has(v.id)?'':v.em}</span>
+      <button class="fav" style="top:14px" aria-label="Favourite" onclick="toggleFav('${v.id}')">${fav?'\u2665':'\u2661'}</button></div></div>
+    <div class="vinfo"><button class="back" style="padding:0 0 4px" onclick="go('${['food','pharmacy','supermarket'].includes(v.cat)?'cat':'home'}','${v.cat}')">\u2190 ${CATS[v.cat].title}</button>
+      <h1>${esc(v.name)}</h1><div class="small muted">${esc(v.tags.join(', '))}, ${esc(v.area)}</div>
+      <div class="stats"><div><b><span class="stars">\u2605</span> ${v.rating}</b><span class="muted">${v.rc.toLocaleString()} ratings</span></div>
+        <div><b>${v.eta} min</b><span class="muted">delivery</span></div><div><b>${v.fee?fmt(v.fee):'Free'}</b><span class="muted">delivery fee</span></div></div>
+      <div class="event ok" style="margin-top:10px"><b>Same price as in the shop.</b> Race never marks up menus. ${esc(v.name)} pays us a commission instead, so what you see here is what you'd pay at the counter.</div>
+      ${v.promo?`<div class="event warn" style="margin-top:8px">${esc(v.promo)}</div>`:''}
+      ${v.cat==='pharmacy'?'<div class="event info">Prescription drugs need a photo of your prescription. A pharmacist checks it before packing.</div>':''}</div>
+    <div class="menutabs">${tabs}</div>${secs}`;
+}
+
+/* ================= SHEETS ================= */
+function openSheet(s){ sheet = s; renderSheet(); }
+function closeSheet(){ sheet = null; layer.innerHTML = ''; }
+function renderSheet(){
+  if(!sheet){ layer.innerHTML = ''; return; }
+  let inner = '';
+  if(sheet.kind === 'item') inner = itemSheet();
+  else if(sheet.kind === 'addr') inner = addrSheet();
+  else if(sheet.kind === 'chat') inner = chatSheet();
+  else if(sheet.kind === 'notes') inner = notesSheet();
+  else if(sheet.kind === 'demo') inner = demoSheet();
+  else if(sheet.kind === 'transfer') inner = transferSheet();
+  else if(sheet.kind === 'fees') inner = feesSheet();
+  else if(sheet.kind === 'credits') inner = `<div class="row between"><h2 style="font-size:22px">Photo credits</h2><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <p class="note">Free-licence photos used in this prototype. Swap in your partners' own photos before launch.</p>
+    <div class="sec">${IMGCREDITS.map(c => `<div class="noti"><b>${esc(c.k)}</b>: ${esc(c.t || 'Untitled')}${c.by?' by '+esc(c.by):''} <span class="muted">(${esc(c.lic||'')}${c.src?', '+esc(c.src):''})</span></div>`).join('')}</div>`;
+  else if(sheet.kind === 'help') inner = helpSheet();
+  else if(sheet.kind === 'support') inner = supportSheet();
+  else if(sheet.kind === 'cancel') inner = cancelSheet();
+  layer.innerHTML = `<div class="scrim" onclick="if(event.target===this)closeSheet()"><div class="sheet" role="dialog" aria-modal="true">${inner}</div></div>`;
+  if(sheet.kind === 'chat' || sheet.kind === 'support'){ const m = document.getElementById('msgs'); if(m) m.scrollTop = m.scrollHeight; }
+}
+function itemSheet(){
+  const v = V(sheet.vid), it = findItem(sheet.vid, sheet.iid), groups = OPTS[it.o] || [];
+  const chosen = []; groups.forEach((g,gi) => { const s = sheet.sel[gi]; if(g.multi) (s||[]).forEach(ci => chosen.push(g.c[ci])); else if(s !== undefined) chosen.push(g.c[s]); });
+  const unit = it.p + chosen.reduce((a,c)=>a+c[1],0);
+  const ok = groups.every((g,gi) => !g.req || sheet.sel[gi] !== undefined);
+  const gs = groups.map((g,gi) => `<div class="optg"><h3>${g.n} ${g.req?'<span class="chip y">Required</span>':'<span class="small muted">Optional</span>'}</h3>
+    ${g.c.map((c,ci) => {
+      const on = g.multi ? (sheet.sel[gi]||[]).includes(ci) : sheet.sel[gi] === ci;
+      return `<label class="opt2"><input type="${g.multi?'checkbox':'radio'}" name="g${gi}" ${on?'checked':''} onchange="pickOpt(${gi},${ci},${g.multi?1:0})"><span class="grow">${c[0]}</span><span class="small muted">${c[1]?'+'+fmt(c[1]):''}</span></label>`;
+    }).join('')}</div>`).join('');
+  return `<div class="row between"><div><div class="small muted">${esc(v.name)}</div><h2 style="font-size:22px">${esc(it.n)}</h2></div><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <p class="small muted" style="margin-top:4px">${esc(it.d)}</p>${gs}
+    <label class="field"><span>Note for the kitchen <span class="muted">(optional)</span></span><input class="input" placeholder="e.g. Less pepper" value="${esc(sheet.note)}" oninput="sheet.note=this.value"></label>
+    <div class="row between" style="margin-top:16px"><div class="qty"><button aria-label="Fewer" onclick="sheet.qty=Math.max(1,sheet.qty-1);renderSheet()">\u2212</button><span>${sheet.qty}</span><button aria-label="More" onclick="sheet.qty++;renderSheet()">+</button></div>
+    <button class="btn" style="width:auto;flex:1;margin-left:12px" ${ok?'':'disabled'} onclick="confirmItem()">Add for ${fmt(unit*sheet.qty)}</button></div>
+    ${ok?'':'<p class="note">Pick the required options to continue.</p>'}`;
+}
+function pickOpt(gi, ci, multi){
+  if(multi){ const a = sheet.sel[gi] || []; sheet.sel[gi] = a.includes(ci) ? a.filter(x=>x!==ci) : [...a, ci]; }
+  else sheet.sel[gi] = ci;
+  renderSheet();
+}
+function confirmItem(){
+  const it = findItem(sheet.vid, sheet.iid), groups = OPTS[it.o] || [], ch = [];
+  groups.forEach((g,gi) => { const s = sheet.sel[gi]; if(g.multi) (s||[]).forEach(ci => ch.push(g.c[ci])); else if(s !== undefined) ch.push(g.c[s]); });
+  addLine(sheet.vid, it, ch, sheet.qty, sheet.note.trim());
+  toast('Added ' + sheet.qty + ' \u00D7 ' + esc(it.n) + '.', false);
+  closeSheet(); render();
+}
+function addrSheet(){
+  const list = S.addresses.map(a => `<label class="paym"><input type="radio" name="ad" ${a.id===S.addrId?'checked':''} onchange="S.addrId='${a.id}';save();closeSheet();render()">
+    <div class="grow" style="flex:1"><b>${esc(a.label)}</b><div class="small muted">${esc(a.line)}, ${esc(a.zone)}${(ZONES.find(z=>z.n===a.zone)||{}).live?'':' (coming soon)'}</div></div></label>`).join('');
+  const zo = ZONES.map(z => `<option value="${esc(z.n)}">${esc(z.n)}${z.live?'':' (coming soon)'}</option>`).join('');
+  return `<div class="row between"><h2 style="font-size:22px">Delivery address</h2><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <div class="list sec">${list}</div>
+    <div class="sec"><b>Add a new address</b>
+      <label class="field"><span>Label</span><input class="input" id="na-l" placeholder="e.g. Mum's house"></label>
+      <label class="field"><span>Street and landmark</span><input class="input" id="na-s" placeholder="e.g. 4 Ezillo Avenue, opposite the church"></label>
+      <label class="field"><span>Area</span><select class="input" id="na-z">${zo}</select></label>
+      <div id="na-e" class="err" hidden></div>
+      <div style="margin-top:12px"><button class="btn dark" onclick="addAddr()">Save address</button></div></div>`;
+}
+function addAddr(){
+  const l = document.getElementById('na-l').value.trim(), s = document.getElementById('na-s').value.trim(), z = document.getElementById('na-z').value;
+  if(!l || !s){ const e = document.getElementById('na-e'); e.hidden = false; e.textContent = 'Add a label and a street so the rider can find you.'; return; }
+  const id = 'ad' + Date.now(); S.addresses.push({id, label:l, line:s, zone:z}); S.addrId = id; save(); closeSheet(); render();
+  toast('Delivering to ' + esc(l) + '.', false);
+}
+const RIDER_REPLIES = {
+  'Please call when you arrive':'No problem, I\'ll call you at the gate.',
+  'Leave it at the gate':'Okay, I\'ll leave it with the gateman and send a photo.',
+  'Are you close?':'Yes, I\'m on Zik Avenue now, about 4 minutes away.',
+  'Thank you!':'You\'re welcome, enjoy!'
+};
+function chatSheet(){
+  const o = find(sheet.oid), p = person(o);
+  const msgs = o.chat.length ? o.chat.map(m => `<div class="msg ${m.me?'me':'them'}">${esc(m.t)}</div>`).join('') : `<p class="small muted" style="text-align:center;margin-top:30px">Messages with ${esc(first(p.name))} appear here. Your number stays private.</p>`;
+  return `<div class="row between"><div class="row"><div class="avatar">${initials(p.name)}</div><div><b>${esc(p.name)}</b><div class="small muted">${o.id}</div></div></div><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <div class="msgs sec" id="msgs">${msgs}</div>
+    <div class="qr">${Object.keys(RIDER_REPLIES).map(q => `<button class="tag" onclick="sendChat('${o.id}',${JSON.stringify(q).replace(/"/g,'&quot;')})">${q}</button>`).join('')}</div>
+    <div class="row"><input class="input" id="chatIn" placeholder="Message ${esc(first(p.name))}" onkeydown="if(event.key==='Enter')sendChat('${o.id}')"><button class="add" onclick="sendChat('${o.id}')">Send</button></div>`;
+}
+function sendChat(id, text){
+  const o = find(id), inp = document.getElementById('chatIn');
+  const t = (text || (inp && inp.value) || '').trim(); if(!t) return;
+  o.chat.push({me:true, t}); save(); renderSheet();
+  setTimeout(() => { o.chat.push({me:false, t:RIDER_REPLIES[t] || 'Got it, thanks.'}); save(); if(sheet && sheet.kind === 'chat') renderSheet(); }, 1400);
+}
+function notesSheet(){
+  S.unread = 0; save(); setTimeout(bell, 0);
+  return `<div class="row between"><h2 style="font-size:22px">Notifications</h2><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <div class="sec">${S.notes.length ? S.notes.map(n => `<div class="noti">${n.t}<div class="small muted">${new Date(n.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div></div>`).join('') : '<p class="muted">No notifications yet. Order updates show up here.</p>'}</div>`;
+}
+function feesSheet(){
+  return `<div class="row between"><h2 style="font-size:22px">How fees work</h2><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <div class="sec list">
+      <div class="li"><div class="grow"><b>Item prices</b><div class="small muted">Exactly the shop's counter price. We never add a markup.</div></div><span class="small b">To the shop</span></div>
+      <div class="li"><div class="grow"><b>Delivery, ${fmt(DELIVERY_FEE)}</b><div class="small muted">Per trip. At least ${fmt(640)} goes to the rider, never less.</div></div><span class="small b">80% rider</span></div>
+      <div class="li"><div class="grow"><b>Service fee, ${fmt(SERVICE_FEE)}</b><div class="small muted">Runs the app, escrow and live human support.</div></div><span class="small b">Race</span></div>
+      <div class="li"><div class="grow"><b>Tips</b><div class="small muted">Optional, and only after delivery if you want.</div></div><span class="small b">100% rider</span></div></div>
+    <p class="note">How Race makes money: shops pay us a commission on each order. You see that in our terms, not hidden in your food price.</p>
+    <p class="note">No small-order fee, no surge fee, no fee you only see at the last step. If an order is cancelled by the shop or never arrives, every fee is refunded.</p>`;
+}
+function cancelQuote(o){
+  const m = simMin(o), limit = o.notified ? o.eta : GUARANTEE;
+  if(o.stage === 0 || m < 0) return {amt:o.total, why:'The store hasn\'t started yet, so you get everything back.'};
+  if(m > limit) return {amt:o.total, why:'We\'re past the time we promised, so you can cancel for free.'};
+  const food = (o.sub || 0);
+  const amt = o.total - food;
+  return {amt, why:'The kitchen has already started, so the food cost ('+fmt(food)+') goes to them. Every fee comes back to you.'};
+}
+function cancelSheet(){
+  const o = find(sheet.oid), q = cancelQuote(o);
+  return `<h2 style="font-size:22px">Cancel ${o.id}?</h2>
+    <div class="card sec"><div class="row between"><span class="muted">You get back</span><b style="font-size:20px">${fmt(q.amt)}</b></div><p class="small muted" style="margin-top:6px">${q.why}</p></div>
+    <p class="note">These rules are the same for everyone, every time. Refunds land in your Race wallet instantly and you can withdraw to your bank.</p>
+    <div class="sec"><button class="btn" style="background:var(--red);color:#fff" onclick="doCancel('${o.id}')">Cancel and refund ${fmt(q.amt)}</button></div>
+    <div style="margin-top:8px"><button class="btn ghost" onclick="closeSheet()">Keep my order</button></div>`;
+}
+function doCancel(id){
+  const o = find(id), q = cancelQuote(o);
+  o.status = 'cancelled'; o.cancelledBy = 'customer';
+  S.wallet += q.amt; txn('Refund ' + o.id + ', you cancelled', q.amt);
+  o.events.push({k:'ok', t:'You cancelled. ' + fmt(q.amt) + ' refunded to your wallet.'});
+  closeSheet(); save(); render(); toast('<b>Cancelled.</b> ' + fmt(q.amt) + ' is back in your wallet.');
+}
+function helpSheet(){
+  const o = sheet.oid ? find(sheet.oid) : null;
+  return `<div class="row between"><h2 style="font-size:22px">Get help</h2><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <p class="note">A real person answers. Average wait right now: under 2 minutes. Your ticket stays open until you say it's fixed.</p>
+    <div class="sec list">
+      ${['Something is missing or wrong','My order is late','Rider can\'t find my address','I was charged wrongly','Something else'].map(t => `<button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="openTicket(${o?`'${o.id}'`:'null'},'${t.replace(/'/g,"\\'")}')"><div class="grow name">${t}</div><span class="muted">\u203A</span></button>`).join('')}</div>
+    <div class="sec"><button class="btn ghost" onclick="toast('Calling Race support on 0700 RACE NOW (demo). Open 7am to midnight.',false)">\uD83D\uDCDE Call support</button></div>`;
+}
+const AGENTS = ['Chiamaka','Tobi','Nneka','Ifeanyi'];
+function openTicket(oid, topic){
+  const t = {id:'T' + (S.tseq++), oid, topic, status:'Open', agent:AGENTS[Math.floor(Math.random()*AGENTS.length)], msgs:[{me:true, t:topic + (oid?' (order ' + oid + ')':'')}], at:Date.now()};
+  S.tickets.unshift(t);
+  S.ops.issues.unshift({id:oid || t.id, kind:'Support ticket: ' + topic, amt:0, note:'Assigned to ' + t.agent + '.'});
+  save(); openSheet({kind:'support', tid:t.id});
+  setTimeout(() => { t.msgs.push({me:false, t:'Hi, I\'m ' + t.agent + ' from Race. I can see ' + (oid?'order ' + oid:'your account') + '. Give me a moment to check.'}); save(); if(sheet && sheet.tid === t.id) renderSheet(); }, 1200);
+  setTimeout(() => { t.msgs.push({me:false, t:supportReply(topic, oid)}); save(); if(sheet && sheet.tid === t.id) renderSheet(); }, 3200);
+}
+function supportReply(topic, oid){
+  const o = oid ? find(oid) : null;
+  if(/missing|wrong/i.test(topic)) return 'When your order arrives, untick anything missing on the check screen and the refund happens instantly. If it already happened, tell me which item and I\'ll refund it now.';
+  if(/late/i.test(topic)) return o ? 'Your rider is on the way. If we pass the promised time without warning you, your delivery fee comes back as credit automatically, and you can cancel for free.' : 'Late orders get your delivery fee back as credit automatically.';
+  if(/address/i.test(topic)) return 'I\'ve shared your landmark with the rider and opened a private call line. They\'ll ring you in a minute.';
+  if(/charged/i.test(topic)) return 'I can see the payment. If anything doesn\'t match your order, I\'ll reverse the difference to your wallet today.';
+  return 'Tell me what happened and I\'ll sort it out.';
+}
+function supportSheet(){
+  const t = S.tickets.find(x => x.id === sheet.tid);
+  return `<div class="row between"><div><b>${esc(t.topic)}</b><div class="small muted">Ticket ${t.id}, ${t.agent}, Race support</div></div><button class="btn-sm" onclick="closeSheet()">Close</button></div>
+    <div class="msgs sec" id="msgs">${t.msgs.map(m => `<div class="msg ${m.me?'me':'them'}">${esc(m.t)}</div>`).join('')}</div>
+    ${t.status==='Open'?`<div class="row"><input class="input" id="supIn" placeholder="Reply to ${t.agent}" onkeydown="if(event.key==='Enter')sendSupport('${t.id}')"><button class="add" onclick="sendSupport('${t.id}')">Send</button></div>
+    <div style="margin-top:10px"><button class="btn ghost" onclick="resolveTicket('${t.id}')">My issue is fixed</button></div>`:'<div class="event ok">Resolved. Thanks for letting us know.</div>'}`;
+}
+function sendSupport(id){
+  const t = S.tickets.find(x => x.id === id), inp = document.getElementById('supIn'), v = (inp.value||'').trim(); if(!v) return;
+  t.msgs.push({me:true, t:v}); save(); renderSheet();
+  setTimeout(() => { t.msgs.push({me:false, t:'Thanks, I\'m on it. I\'ll update you here, and the ticket stays open until you confirm it\'s fixed.'}); save(); if(sheet && sheet.tid === id) renderSheet(); }, 1500);
+}
+function resolveTicket(id){ const t = S.tickets.find(x => x.id === id); t.status = 'Resolved'; save(); renderSheet(); }
+function transferSheet(){
+  return `<h2 style="font-size:22px">Pay by bank transfer</h2>
+    <p class="sub" style="margin-top:6px">Send exactly this amount to your Race account. It's confirmed automatically.</p>
+    <div class="card sec stack"><div class="row between"><span class="muted">Amount</span><b>${fmt(sheet.amount)}</b></div>
+      <div class="row between"><span class="muted">Bank</span><b>Race Payments (demo)</b></div>
+      <div class="row between"><span class="muted">Account number</span><b style="letter-spacing:.08em">9910 482 731</b></div>
+      <div class="row between"><span class="muted">Name</span><b>RACE / ${esc(S.addresses[0].label.toUpperCase())}</b></div></div>
+    <div class="sec"><button class="btn" onclick="closeSheet();placeOrder(true)">I've sent the money</button></div>
+    <div style="margin-top:8px"><button class="btn ghost" onclick="closeSheet()">Cancel</button></div>`;
+}
+
+/* ================= CART + CHECKOUT ================= */
+function groupsOf(){ const g = {}; S.cart.forEach(c => (g[c.vid] = g[c.vid] || []).push(c)); return g; }
+function totals(){
+  const g = groupsOf(), vids = Object.keys(g);
+  const items = S.cart.reduce((a,c) => a + c.price*c.qty, 0);
+  const delivery = vids.reduce((a,v) => a + feeFor(v, g[v].reduce((x,c)=>x+c.price*c.qty,0)), 0);
+  const service = vids.length * SERVICE_FEE;
+  const t = {items, delivery, service, tip:Number(S.co.tip)||0, discount:0, vids, g};
+  const p = PROMOS[S.co.promoOk]; if(p) t.discount = p.apply(t);
+  t.gross = items + delivery + service + t.tip - t.discount;
+  t.credit = S.co.pay === 'wallet' ? Math.min(S.credits, t.gross) : 0;
+  t.due = t.gross - t.credit;
+  return t;
+}
+function cartScreen(){
+  if(!S.cart.length) return `${backBtn('home')}<h1 class="h1">Your cart</h1><div class="card" style="margin-top:14px"><p>Your cart is empty. Open a restaurant or store to add something.</p><div style="margin-top:12px"><button class="btn" onclick="go('home')">Browse</button></div></div>`;
+  const t = totals();
+  const blocks = t.vids.map(vid => {
+    const v = V(vid), lines = t.g[vid];
+    const subSel = ['supermarket','pharmacy'].includes(v.cat) ? `<label class="field"><span>If something is out of stock</span><select class="input" onchange="S.subs['${vid}']=this.value;save()">${Object.entries(SUBPREF).map(([k,l]) => `<option value="${k}" ${(S.subs[vid] || (v.cat==='pharmacy'?'none':'ask'))===k?'selected':''}>${l}</option>`).join('')}</select></label>${v.cat==='pharmacy'?'<p class="note">Drugs are never swapped without your OK.</p>':''}` : '';
+    return `<div class="sec"><div class="sec-h"><h2>${esc(v.name)}</h2><button class="btn-sm" onclick="go('vendor','${vid}')">Add more</button></div><div class="list">${lines.map(c => `
+      <div class="li"><div class="grow"><div class="name">${esc(c.name)}</div>${c.opts?`<div class="small muted">${esc(c.opts)}</div>`:''}${c.note?`<div class="small muted">Note: ${esc(c.note)}</div>`:''}<div class="price small">${fmt(c.price*c.qty)}</div></div>
+      <div class="qty"><button aria-label="Remove one" onclick="cartLine('${esc(c.key)}',-1)">\u2212</button><span>${c.qty}</span><button aria-label="Add one" onclick="cartLine('${esc(c.key)}',1)">+</button></div></div>`).join('')}</div>${subSel}</div>`;
+  }).join('');
+  return `${backBtn('home')}<h1 class="h1">Your cart</h1>
+    ${t.vids.length>1?`<div class="event info">These come from ${t.vids.length} different places, so they travel as ${t.vids.length} separate deliveries, each with its own 30-minute guarantee and delivery fee.</div>`:''}
+    ${blocks}
+    <div class="sec list"><div class="li"><div class="grow muted">Items</div><div class="price">${fmt(t.items)}</div></div>
+      <div class="li"><div class="grow muted">Delivery</div><div class="price">${t.delivery?fmt(t.delivery):'Free'}</div></div>
+      <div class="li"><div class="grow muted">Service fee</div><div class="price">${fmt(t.service)}</div></div></div>
+    <div style="margin-top:14px"><button class="btn" onclick="go('checkout')">Go to checkout</button></div>`;
+}
+function applyPromo(){
+  const c = (S.co.promo || '').trim().toUpperCase(); S.co.promo = c;
+  if(!c){ S.co.promoOk = ''; return render(); }
+  if(!PROMOS[c]){ S.co.promoOk = ''; S.err = 'That code isn\'t valid. Try RACE50 or WELCOME.'; return render(); }
+  S.co.promoOk = c; const t = totals();
+  if(!t.discount){ S.co.promoOk = ''; S.err = PROMOS[c].min || 'This code doesn\'t apply to your cart.'; return render(); }
+  S.err = ''; save(); render(); toast(c + ' applied: ' + fmt(t.discount) + ' off.', false);
+}
+function checkoutScreen(){
+  if(!S.cart.length) return cartScreen();
+  if(S.co.promo && !S.co.promoOk && PROMOS[S.co.promo] && !S.err){ S.co.promoOk = S.co.promo; if(!totals().discount) S.co.promoOk = ''; }
+  const t = totals(), a = addr();
+  const needRx = S.cart.some(c => c.rx);
+  let why = '';
+  if(!zoneLive()) why = 'Race doesn\'t deliver to ' + esc(a.zone) + ' yet. Choose a live area.';
+  else if(needRx && !S.rxFile) why = 'Add a photo of your prescription to continue.';
+  else if(S.co.pay === 'wallet' && t.due > S.wallet) why = 'Your wallet has ' + fmt(S.wallet) + '. Top up in Account or pay by card or transfer.';
+  const pays = [['wallet','Race wallet', fmt(S.wallet) + ' available' + (S.credits?', plus ' + fmt(S.credits) + ' credit':'')],['card','Debit card','Visa ending 4417'],['transfer','Bank transfer','Pay to your Race account number']]
+    .map(([k,l,d]) => `<label class="paym"><input type="radio" name="pay" ${S.co.pay===k?'checked':''} onchange="S.co.pay='${k}';save();render()"><div style="flex:1"><b>${l}</b><div class="small muted">${d}</div></div></label>`).join('');
+  const tips = ['later',0,200,500,1000].map(v => `<button class="tag" aria-pressed="${String(S.co.tip)===String(v)}" onclick="S.co.tip=${v==='later'?"'later'":v};save();render()">${v==='later'?'Tip after delivery':v?fmt(v):'No tip'}</button>`).join('');
+  const sched = [['now','As soon as possible'],['1h','In 1 hour'],['7pm','Tonight, 7:00 PM']].map(([k,l]) => `<option value="${k}" ${S.co.sched===k?'selected':''}>${l}</option>`).join('');
+  return `${backBtn('cart')}<h1 class="h1">Checkout</h1>
+    <div class="sec card row" role="button" tabindex="0" onclick="openSheet({kind:'addr'})" style="cursor:pointer"><span style="font-size:22px">\uD83D\uDCCD</span><div style="flex:1;min-width:0"><b>${esc(a.label)}</b><div class="small muted">${esc(a.line)}, ${esc(a.zone)}</div></div><span class="small b">Change</span></div>
+    <label class="field"><span>Instructions for the rider <span class="muted">(optional)</span></span><input class="input" placeholder="e.g. Blue gate, call when you're outside" value="${esc(S.co.note)}" oninput="S.co.note=this.value;save()"></label>
+    <label class="field"><span>When</span><select class="input" onchange="S.co.sched=this.value;save()">${sched}</select></label>
+    ${needRx?`<div class="sec card"><b>Prescription</b><p class="small muted">Required for items marked prescription.</p>
+      <label class="field"><span>${S.rxFile?'Uploaded: '+esc(S.rxFile):'Upload a photo'}</span><input class="input" type="file" accept="image/*,.pdf" onchange="S.rxFile=this.files[0]?this.files[0].name:'';save();render()"></label></div>`:''}
+    <div class="sec"><div class="sec-h"><h2>Payment</h2></div><div class="list">${pays}</div></div>
+    <div class="sec"><div class="sec-h"><h2>Tip your rider</h2><span class="small muted">100% goes to them</span></div><div class="tips">${tips}</div>
+      <p class="note">Riders don't see tips when choosing jobs, so every order gets picked up just as fast.</p></div>
+    <div class="sec"><div class="sec-h"><h2>Promo code</h2></div><div class="row"><input class="input" placeholder="e.g. RACE50" value="${esc(S.co.promo)}" oninput="S.co.promo=this.value" style="text-transform:uppercase"><button class="add" onclick="applyPromo()">Apply</button></div>
+      ${S.co.promoOk?`<p class="note" style="color:var(--green)">${S.co.promoOk}: ${PROMOS[S.co.promoOk].d}</p>`:''}${S.err?`<div class="err">${S.err}</div>`:''}</div>
+    <div class="sec list">
+      <div class="li"><div class="grow muted">Items</div><div class="price">${fmt(t.items)}</div></div>
+      <div class="li"><div class="grow muted">Delivery (${t.vids.length} trip${t.vids.length>1?'s':''})</div><div class="price">${t.delivery?fmt(t.delivery):'Free'}</div></div>
+      <div class="li"><div class="grow muted">Service fee</div><div class="price">${fmt(t.service)}</div></div>
+      ${t.tip?`<div class="li"><div class="grow muted">Rider tip</div><div class="price">${fmt(t.tip)}</div></div>`:''}
+      ${t.discount?`<div class="li"><div class="grow muted">Promo ${S.co.promoOk}</div><div class="price" style="color:var(--green)">\u2212${fmt(t.discount)}</div></div>`:''}
+      ${t.credit?`<div class="li"><div class="grow muted">Race credit</div><div class="price" style="color:var(--green)">\u2212${fmt(t.credit)}</div></div>`:''}
+      <div class="li"><div class="grow b">Total</div><div class="price" style="font-size:19px">${fmt(t.due)}</div></div></div>
+    <div style="margin-top:8px"><button class="btn-sm" onclick="openSheet({kind:'fees'})">How fees work</button>${S.plus?' <span class="chip g">Race Plus: free delivery over '+fmt(PLUS_MIN)+'</span>':''}</div>
+    <p class="note">Held in Race escrow until you check your order and give your rider the release code. If it's cancelled or never arrives, every naira comes back, fees included.</p>
+    ${why?`<div class="err">${why}</div>`:''}
+    <div style="margin-top:14px"><button class="btn" ${why?'disabled':''} onclick="startPay()">Pay ${fmt(t.due)}</button></div>`;
+}
+function startPay(){
+  const t = totals();
+  if(S.co.pay === 'transfer') return openSheet({kind:'transfer', amount:t.due});
+  if(S.co.pay === 'card'){ toast('Card ending 4417 approved (demo).', false); }
+  placeOrder(false);
+}
+function placeOrder(){
+  const t = totals();
+  if(!charge(t.gross, S.co.pay)){ toast('Not enough in your wallet. Top up or pay another way.', false); return; }
+  const later = S.co.sched !== 'now';
+  let firstO;
+  t.vids.forEach((vid, i) => {
+    const v = V(vid), lines = t.g[vid];
+    const sub = lines.reduce((a,c) => a + c.price*c.qty, 0);
+    const disc = i === 0 ? t.discount : 0, tip = i === 0 ? t.tip : 0;
+    const fee = feeFor(vid, sub);
+    const lns = [{l:'Items', v:sub},{l:'Delivery', v:fee},{l:'Service fee', v:SERVICE_FEE}];
+    if(tip) lns.push({l:'Tip', v:tip}); if(disc) lns.push({l:'Promo ' + S.co.promoOk, v:-disc});
+    const o = makeOrder({type:'delivery', cat:v.cat, vendorId:vid, title:v.name, later,
+      items:lines.map(c => ({name:c.name + (c.opts?' ('+c.opts+')':''), price:c.price, qty:c.qty, note:c.note})),
+      lines:lns, total:sub + fee + SERVICE_FEE + tip - disc, sub, fee, personId:randRider(), deliveryFee:fee || DELIVERY_FEE,
+      workerPay:Math.max(640, Math.round((fee || DELIVERY_FEE)*0.8)) + tip, tip, tipLater:S.co.tip === 'later', discount:disc, pay:S.co.pay, riderNote:S.co.note,
+      subPref:(['supermarket','pharmacy'].includes(v.cat) ? (S.subs[vid] || (v.cat==='pharmacy'?'none':'ask')) : null),
+      seal:'RS-' + Math.floor(100000 + Math.random()*900000)});
+    if(later) o.events.push({k:'info', t:'Scheduled for ' + (S.co.sched === '1h' ? 'one hour from now' : '7:00 PM') + '. Demo starts it in a few seconds.'});
+    firstO = firstO || o;
+  });
+  S.cart = []; S.rxFile = ''; S.co = {pay:S.co.pay, tip:'later', promo:'', promoOk:'', sched:'now', note:''};
+  save(); go('track', firstO.id);
+  toast('<b>Order placed.</b> ' + fmt(t.due) + ' held in escrow. ' + esc(V(firstO.vendorId).name) + ' is confirming.');
+}
+
+/* ================= SHOPPER / GENERAL / ARTISANS ================= */
+function shopperScreen(){
+  const sh = S.shop, sel = Object.keys(SHOP_TYPES).filter(k => sh.types[k]);
+  const fee = sel.reduce((a,k) => a + SHOP_TYPES[k].fee, 0), budget = Number(sh.budget) || 0;
+  const opts = Object.entries(SHOP_TYPES).map(([k,t]) => `<label class="check" style="align-items:flex-start"><input type="checkbox" ${sh.types[k]?'checked':''} onchange="S.shop.types['${k}']=this.checked;save();render()">${has('sh_'+k)?`<span class="thumb ph ph-sh_${k}" style="width:56px;height:56px;border-radius:12px;flex:none"></span>`:''}
+    <div style="flex:1"><div class="row between"><b>${t.l}</b><span class="price">${fmt(t.fee)}</span></div><div class="small muted">${t.d}. Goes to ${t.where}.</div></div></label>`).join('');
+  const lists = sel.map(k => `<label class="field"><span>${SHOP_TYPES[k].l} list</span><textarea class="input" placeholder="${k==='market'?'e.g. 1 basket tomatoes, 2 tubers of yam, 1kg fresh fish':'One item per line'}" oninput="S.shop.lists['${k}']=this.value;save()">${esc(sh.lists[k]||'')}</textarea></label>`).join('');
+  return `${backBtn('home')}<h1 class="h1">Personal shopper</h1>
+    <p class="sub">A vetted shopper goes to each place for you, buys within your budget, photographs the receipt and the items, then a rider brings it.</p>
+    <div class="sec"><div class="sec-h"><h2>Where should they shop?</h2></div><div class="list">${opts}</div>
+    <p class="note">The shopper fee is per location. One type of shopping is one trip. Two types means two stops, so two fees.</p></div>
+    ${sel.length?`<div class="sec">${lists}<label class="field"><span>Goods budget</span><input class="input" type="number" inputmode="numeric" placeholder="e.g. 15000" value="${esc(sh.budget)}" oninput="S.shop.budget=this.value;save()"></label>
+      <p class="note">Unspent money comes back to your wallet when you confirm.</p></div>`:''}
+    <div class="sec list"><div class="li"><div class="grow muted">Shopper fee, ${sel.length} stop${sel.length===1?'':'s'}</div><div class="price">${fmt(fee)}</div></div>
+      <div class="li"><div class="grow muted">Delivery</div><div class="price">${fmt(DELIVERY_FEE)}</div></div>
+      <div class="li"><div class="grow muted">Goods budget, in escrow</div><div class="price">${fmt(budget)}</div></div>
+      <div class="li"><div class="grow b">Total</div><div class="price">${fmt(fee + DELIVERY_FEE + budget)}</div></div></div>
+    ${S.err?`<div class="err">${S.err}</div>`:''}<div style="margin-top:14px"><button class="btn" onclick="checkoutShopper()">Send a shopper</button></div>`;
+}
+function checkoutShopper(){
+  const sh = S.shop, sel = Object.keys(SHOP_TYPES).filter(k => sh.types[k]), budget = Number(sh.budget) || 0;
+  if(!zoneLive()){ S.err = 'Race doesn\'t deliver to ' + addr().zone + ' yet.'; return render(); }
+  if(!sel.length){ S.err = 'Pick at least one place to shop.'; return render(); }
+  const empty = sel.find(k => !(sh.lists[k]||'').trim());
+  if(empty){ S.err = 'Add what you need from the ' + SHOP_TYPES[empty].l.toLowerCase() + '.'; return render(); }
+  if(budget < 1000){ S.err = 'Set a goods budget of at least ' + fmt(1000) + '.'; return render(); }
+  const fee = sel.reduce((a,k) => a + SHOP_TYPES[k].fee, 0), total = fee + DELIVERY_FEE + budget;
+  if(!charge(total)){ S.err = 'Your wallet has ' + fmt(S.wallet) + '. Top up in Account to pay ' + fmt(total) + '.'; return render(); }
+  const items = []; sel.forEach(k => (sh.lists[k]||'').split(/\n|,/).map(x=>x.trim()).filter(Boolean).forEach(x => items.push({name:x + ' (' + SHOP_TYPES[k].l + ')', price:0, qty:1})));
+  const o = makeOrder({type:'shopper', cat:'shopper', title:'Personal shopper, ' + sel.map(k=>SHOP_TYPES[k].l).join(' + '), items,
+    lines:[{l:'Shopper fee', v:fee},{l:'Delivery', v:DELIVERY_FEE},{l:'Goods budget', v:budget}], total, personId:'r4', riderAccepted:true,
+    deliveryFee:DELIVERY_FEE, workerPay:Math.round(DELIVERY_FEE*0.8 + fee*0.85), pay:'wallet'});
+  S.shop = {types:{market:true}, lists:{}, budget:''}; save(); go('track', o.id);
+  toast('<b>Amaka is heading to ' + SHOP_TYPES[sel[0]].where + '.</b> ' + fmt(total) + ' in escrow.');
+}
+function generalScreen(){
+  const g = S.gen, budget = Number(g.budget) || 0;
+  return `${backBtn('home')}<h1 class="h1">Anything else</h1><p class="sub">Equipment, foodstuff, a charger from Kenyatta, a parcel from a friend. If it fits on a bike, describe it.</p>
+    <label class="field"><span>What do you need?</span><textarea class="input" placeholder="e.g. 1 original 18W phone charger" oninput="S.gen.what=this.value;save()">${esc(g.what)}</textarea></label>
+    <label class="field"><span>Where from? <span class="muted">(optional)</span></span><input class="input" placeholder="Shop name or area, or leave blank" value="${esc(g.from)}" oninput="S.gen.from=this.value;save()"></label>
+    <label class="field"><span>Budget for the item</span><input class="input" type="number" inputmode="numeric" placeholder="e.g. 6000" value="${esc(g.budget)}" oninput="S.gen.budget=this.value;save()"></label>
+    <div class="sec list"><div class="li"><div class="grow muted">Errand fee</div><div class="price">${fmt(ERRAND_FEE)}</div></div>
+      <div class="li"><div class="grow muted">Delivery</div><div class="price">${fmt(DELIVERY_FEE)}</div></div>
+      <div class="li"><div class="grow muted">Item budget, in escrow</div><div class="price">${fmt(budget)}</div></div>
+      <div class="li"><div class="grow b">Total</div><div class="price">${fmt(ERRAND_FEE + DELIVERY_FEE + budget)}</div></div></div>
+    ${S.err?`<div class="err">${S.err}</div>`:''}<div style="margin-top:14px"><button class="btn" onclick="checkoutGeneral()">Request it</button></div>`;
+}
+function checkoutGeneral(){
+  const g = S.gen, budget = Number(g.budget) || 0;
+  if(!zoneLive()){ S.err = 'Race doesn\'t deliver to ' + addr().zone + ' yet.'; return render(); }
+  if(!g.what.trim()){ S.err = 'Describe what you need.'; return render(); }
+  const total = ERRAND_FEE + DELIVERY_FEE + budget;
+  if(!charge(total)){ S.err = 'Your wallet has ' + fmt(S.wallet) + '. Top up to pay ' + fmt(total) + '.'; return render(); }
+  const o = makeOrder({type:'errand', cat:'general', title:'Errand: ' + g.what.trim().slice(0,40), items:[{name:g.what.trim(), price:budget, qty:1}],
+    lines:[{l:'Errand fee', v:ERRAND_FEE},{l:'Delivery', v:DELIVERY_FEE},{l:'Item budget', v:budget}], total, personId:randRider(),
+    deliveryFee:DELIVERY_FEE, workerPay:Math.round((ERRAND_FEE + DELIVERY_FEE)*0.8), pay:'wallet'});
+  S.gen = {what:'', from:'', budget:''}; save(); go('track', o.id);
+}
+function artisansScreen(){
+  const tiles = Object.entries(TRADES).map(([k,l]) => `<button class="tile${has('t_'+k)?' phtile':''}" onclick="go('trade','${k}')">${has('t_'+k)?`<span class="tileimg ph ph-t_${k}"></span>`:`<span class="ic">${TRADE_IC[k]}</span>`}<b>${l}</b><span>${S.artisans.filter(a=>a.trade===k).length} vetted near you</span></button>`).join('');
+  return `${backBtn('home')}<h1 class="h1">Artisans</h1><p class="sub">Every artisan is ID-checked and rated. Your call-out fee sits in escrow until you confirm the job is done.</p><div class="sec tiles">${tiles}</div>`;
+}
+function tradeScreen(trade){
+  const list = S.artisans.filter(a => a.trade === trade).sort((a,b) => b.rating - a.rating);
+  return `${backBtn('artisans')}<h1 class="h1">${TRADES[trade]}s</h1><p class="sub">Ranked by customer rating. At your door within 30 minutes.</p><div class="sec list">${list.map(a => {
+    const rv = S.reviews.find(r => r.who === a.id);
+    return `<div class="li" style="align-items:flex-start"><div class="avatar">${initials(a.name)}</div><div class="grow"><div class="name">${esc(a.name)}</div>
+      <div class="small"><span class="stars">${starStr(a.rating)}</span> ${a.rating.toFixed(1)} <span class="muted">from ${a.count} jobs</span></div>
+      ${rv?`<div class="small muted">\u201C${esc(rv.text)}\u201D, ${esc(rv.by)}</div>`:''}<div class="small">Call-out fee <b>${fmt(a.fee)}</b></div></div>
+      <button class="add" onclick="go('book','${a.id}')">Book</button></div>`;
+  }).join('')}</div>`;
+}
+function bookScreen(id){
+  const a = S.artisans.find(x => x.id === id);
+  return `${backBtn('trade', a.trade)}<h1 class="h1">Book ${esc(first(a.name))}</h1>
+    <div class="card row" style="margin-top:12px"><div class="avatar">${initials(a.name)}</div><div><div class="b">${esc(a.name)}</div><div class="small muted">${TRADES[a.trade]}, <span class="stars">\u2605</span> ${a.rating.toFixed(1)}</div></div></div>
+    <label class="field"><span>What needs doing?</span><textarea class="input" placeholder="e.g. Kitchen sink is leaking under the cabinet" oninput="S.book.issue=this.value;save()">${esc(S.book.issue)}</textarea></label>
+    <div class="sec list"><div class="li"><div class="grow muted">Call-out fee, covers inspection and first hour</div><div class="price">${fmt(a.fee)}</div></div></div>
+    <p class="note">If the job needs parts or more time, ${esc(first(a.name))} sends a quote in the app. Damage during the job is covered by Race.</p>
+    ${S.err?`<div class="err">${S.err}</div>`:''}<div style="margin-top:14px"><button class="btn" onclick="checkoutBook('${a.id}')">Book and pay ${fmt(a.fee)}</button></div>`;
+}
+function checkoutBook(id){
+  const a = S.artisans.find(x => x.id === id);
+  if(!zoneLive()){ S.err = 'Race doesn\'t cover ' + addr().zone + ' yet.'; return render(); }
+  if(!S.book.issue.trim()){ S.err = 'Describe the job so ' + first(a.name) + ' brings the right tools.'; return render(); }
+  if(!charge(a.fee)){ S.err = 'Your wallet has ' + fmt(S.wallet) + '. Top up to book.'; return render(); }
+  const o = makeOrder({type:'service', cat:'artisans', title:TRADES[a.trade] + ': ' + S.book.issue.trim().slice(0,40),
+    items:[{name:S.book.issue.trim(), price:a.fee, qty:1}], lines:[{l:'Call-out fee', v:a.fee}], total:a.fee, personId:a.id,
+    deliveryFee:a.fee, workerPay:Math.round(a.fee*0.9), pay:'wallet'});
+  S.book = {issue:''}; save(); go('track', o.id);
+}
+
+/* ================= TRACKING ================= */
+function mapSvg(o){
+  const v = vendorPos(o), r = routes(o), vname = o.vendorId ? V(o.vendorId).name : o.type === 'shopper' ? 'Ogbete Market' : o.type === 'service' ? 'Workshop' : 'Pickup';
+  return `<div class="map"><svg viewBox="0 0 360 220" role="img" aria-label="Live map of your rider">
+    <g stroke="#FFFFFF" stroke-linecap="round" fill="none" opacity=".95">
+      <path d="M0 110 H360" stroke-width="10"/><path d="M180 0 V220" stroke-width="10"/><path d="M0 178 H360" stroke-width="7"/>
+      <path d="M0 60 H360" stroke-width="6"/><path d="M90 0 V220" stroke-width="5"/><path d="M300 0 V220" stroke-width="5"/>
+      <path d="M40 0 V220" stroke-width="4"/><path d="M250 0 V220" stroke-width="4"/><path d="M0 30 H360" stroke-width="3"/><path d="M0 220 L140 0" stroke-width="5"/></g>
+    <rect x="196" y="122" width="40" height="40" rx="6" fill="#C9DDBE"/><rect x="104" y="70" width="60" height="28" rx="6" fill="#C9DDBE"/>
+    <g font-size="8" fill="#6B7366" font-family="DM Sans,sans-serif"><text x="6" y="106">Ogui Road</text><text x="184" y="14">Okpara Ave</text><text x="6" y="174">Zik Avenue</text><text x="304" y="14">Agbani Rd</text><text x="200" y="146">Polo Park</text></g>
+    <path id="ra-${o.id}" d="${r.a}" fill="none" stroke="#3550C4" stroke-width="3" stroke-dasharray="4 5" opacity=".55"/>
+    <path id="rb-${o.id}" d="${r.b}" fill="none" stroke="#1C1A3A" stroke-width="4" stroke-linecap="round"/>
+    <g transform="translate(${v.x},${v.y})"><circle r="11" fill="#FFFFFF" stroke="#1C1A3A" stroke-width="2"/><text y="4" text-anchor="middle" font-size="10" font-weight="800" fill="#1C1A3A" font-family="DM Sans,sans-serif">${o.vendorId?esc(V(o.vendorId).name[0]):'P'}</text></g>
+    <text x="${Math.min(v.x+14,280)}" y="${v.y-12}" font-size="9" font-weight="700" fill="#1C1A3A" font-family="DM Sans,sans-serif">${esc(vname)}</text>
+    <g transform="translate(${HOME.x},${HOME.y})"><circle r="12" fill="#1E8E4E" stroke="#fff" stroke-width="2"/><path d="M-5 1 L0 -4 L5 1 V5 H-5 Z" fill="#fff"/></g>
+    <text x="${HOME.x-18}" y="${HOME.y+26}" font-size="9" font-weight="700" fill="#1C1A3A" font-family="DM Sans,sans-serif">You</text>
+    <g data-live="${o.id}" data-kind="rider" transform="translate(40,30)"><circle r="13" fill="#FFC93C" opacity=".3"/><circle r="9" fill="#FFC93C" stroke="#1C1A3A" stroke-width="2"/><text y="3.5" text-anchor="middle" font-size="9" font-weight="800" fill="#1C1A3A" font-family="DM Sans,sans-serif">${o.type==='service'?'A':'R'}</text></g>
+  </svg>${isOpen(o)?`<button class="chatbtn" onclick="openSheet({kind:'chat',oid:'${o.id}'})">\uD83D\uDCAC Chat${o.chat.filter(m=>!m.me).length?' ('+o.chat.filter(m=>!m.me).length+')':''}</button>`:''}</div>`;
+}
+function trackScreen(id){
+  const o = find(id); if(!o) return homeScreen();
+  const p = person(o), st = stagesFor(o), g = guaranteeState(o), isService = o.type === 'service';
+  const tl = st.map((s,i) => { const cls = i < o.stage || (i === o.stage && o.status !== 'active') ? 'done' : i === o.stage ? 'now' : 'todo';
+    return `<li class="${cls}"><span class="dot">${cls==='done'?'\u2713':''}</span><span>${esc(s.l)}</span></li>`; }).join('');
+  const events = o.events.filter(e => e.k !== 'info' || /escrow|refund|Race covered|released|Scheduled|declined/i.test(e.t)).map(e => `<div class="event ${e.k}">${esc(e.t)}</div>`).join('');
+  let action = '';
+  if(o.status === 'arrived') action = `<button class="btn" onclick="go('confirm','${o.id}')">${isService?'Check the job':'Check your items'}</button><p class="note">Nobody gets paid until you confirm.</p>`;
+  else if(o.status === 'confirmed') action = `<div class="card"><b>Give this code to ${esc(first(p.name))}</b><div class="code">${o.code}</div>
+      <p class="small muted">${esc(first(p.name))} enters it in the Rider app to release payment. Share it only once you're happy. If you forget, payment releases after 24 hours unless you report a problem.</p>
+      <p class="note">Demo: tap <b>Rider</b> at the top and enter ${o.code}.</p></div>`;
+  else if(o.status === 'completed') action = o.rated ? `<div class="event ok">Payment released. Thanks for using Race.</div>${o.type==='delivery'?`<div style="margin-top:10px"><button class="btn ghost" onclick="reorder('${o.id}')">Reorder</button></div>`:''}` : `<button class="btn" onclick="go('rate','${o.id}')">Rate ${esc(first(p.name))}</button>`;
+  else if(o.status === 'cancelled') action = o.cancelledBy === 'customer' ? `<div class="event bad">You cancelled this order. Your refund is in your Race wallet.</div>` : `<div class="event bad">${o.vendorId?esc(V(o.vendorId).name):'The store'} couldn't take this order. ${fmt(o.total)} was refunded to your Race wallet, fees included.</div>`;
+  const awaitingRider = o.status === 'active' && !o.riderAccepted && simMin(o) >= 0;
+  const subBanner = o.subAsk && o.subAsk.state === 'pending' ? `<div class="card" style="border:2px solid var(--y)"><b>${esc(o.items[0].name)} is out of stock</b><p class="small muted" style="margin-top:4px">The shopper found a similar brand at the same price. Nothing is swapped without your OK. No reply before packing means a refund.</p>
+      <div class="row" style="margin-top:10px"><button class="btn green" style="flex:1" onclick="answerSub('${o.id}',true)">Approve swap</button><button class="btn ghost" style="flex:1" onclick="answerSub('${o.id}',false)">Refund it</button></div></div>` : '';
+  const trust = o.type === 'delivery' && isOpen(o) ? `<div class="event info">Direct to you: your rider carries only your order, no extra stops. Your bag is closed with Race seal <b>${o.seal}</b>. Don't accept it if the seal is broken.</div>` : '';
+  const canCancel = o.status === 'active';
+  const helpRow = o.status !== 'completed' || !o.rated ? `<div class="row" style="margin-top:10px;gap:8px">${o.status!=='cancelled'?`<button class="btn-sm" onclick="openSheet({kind:'help',oid:'${o.id}'})">Get help from a person</button>`:''}${canCancel?`<button class="btn-sm" onclick="openSheet({kind:'cancel',oid:'${o.id}'})">Cancel order</button>`:''}</div>` : '';
+  return `${backBtn('orders')}
+    <div class="trackpanel" style="margin-top:8px">
+      <div class="ring"><svg width="132" height="132" viewBox="0 0 132 132"><circle cx="66" cy="66" r="54" fill="none" stroke="#3B3970" stroke-width="10"/>
+        <circle cx="66" cy="66" r="54" fill="none" stroke="#FFC93C" stroke-width="10" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" data-live="${o.id}" data-kind="ring"/></svg>
+        <div class="t"><b data-live="${o.id}" data-kind="clock">--:--</b><small data-live="${o.id}" data-kind="label"></small></div></div>
+      <div style="min-width:0"><div class="small" style="color:#C9C8E4">${o.id}, ${esc(o.title)}</div><h2>${esc(simMin(o)<0?'Scheduled':st[o.stage].l)}</h2>
+        <span class="chip ${g.cls}">${g.l}</span><div class="small" style="color:#C9C8E4;margin-top:8px">${fmt(o.total)} held in escrow</div></div></div>
+    ${o.vendorId && has(o.vendorId) ? `<div class="sec trackstrip ph ph-${o.vendorId}"><span>${esc(V(o.vendorId).name)}</span></div>` : ''}
+    ${o.status !== 'cancelled' ? `<div class="sec">${mapSvg(o)}</div>` : ''}
+    ${subBanner?`<div class="sec">${subBanner}</div>`:''}
+    <div class="sec">${action}${helpRow}</div>${trust?`<div class="sec">${trust}</div>`:''}${events?`<div class="sec">${events}</div>`:''}
+    ${o.status !== 'cancelled' ? `<div class="sec card row"><div class="avatar">${initials(p.name)}</div><div style="flex:1"><div class="b">${awaitingRider?'Finding a rider nearby\u2026':esc(p.name)}</div>
+      <div class="small muted">${awaitingRider?'Usually under a minute':(isService?TRADES[p.trade]:esc(p.role)) + ', <span class="stars">\u2605</span> ' + p.rating.toFixed(1) + ' (' + p.count + ')'}</div></div>
+      ${isOpen(o) && !awaitingRider ? `<button class="btn-sm" onclick="toast('Calling ${esc(first(p.name))} through a private line (demo).',false)">Call</button>` : ''}</div>` : ''}
+    <div class="sec card"><ul class="tl">${tl}</ul></div>
+    <div class="sec list">${o.items.map(it => `<div class="li" style="${it.removed?'opacity:.5':''}"><div class="grow">${it.qty>1?it.qty+' \u00D7 ':''}<span style="${it.removed?'text-decoration:line-through':''}">${esc(it.name)}</span>${it.removed?' <span class="chip g">Refunded</span>':''}${it.note?`<div class="small muted">Note: ${esc(it.note)}</div>`:''}</div>${it.price?`<div class="price">${fmt(it.price*it.qty)}</div>`:''}</div>`).join('')}
+      ${o.lines.map(l => `<div class="li"><div class="grow muted">${l.l}</div><div class="price">${l.v<0?'\u2212'+fmt(-l.v):fmt(l.v)}</div></div>`).join('')}
+      <div class="li"><div class="grow muted">Deliver to</div><div class="small" style="text-align:right">${esc(o.address)}</div></div></div>`;
+}
+function reorder(id){
+  const o = find(id); if(!o.vendorId) return;
+  const v = V(o.vendorId);
+  o.items.forEach(it => { const base = it.name.replace(/ \(.+\)$/, ''); let found;
+    v.menu.forEach(s => s.items.forEach(m => { if(m.n === base) found = m; }));
+    if(found){ const opts = (it.name.match(/\((.+)\)$/)||[])[1] || ''; const key = found.id + '|' + opts + '|';
+      const ex = S.cart.find(c => c.key === key); if(ex) ex.qty += it.qty; else S.cart.push({key, vid:v.id, itemId:found.id, name:found.n, opts, note:'', price:it.price, qty:it.qty, rx:!!found.rx}); } });
+  save(); go('cart'); toast('Added your last ' + esc(v.name) + ' order to the cart.', false);
+}
+function confirmScreen(id){
+  const o = find(id); if(!o) return homeScreen();
+  const c = S.confirm[id] || (S.confirm[id] = {missing:{}, note:''}), isService = o.type === 'service';
+  return `${backBtn('track', id)}<h1 class="h1">${isService?'Is the job done?':'Check your items'}</h1>
+    <p class="sub">${isService?'Untick anything that wasn\'t fixed.':'Untick anything missing, wrong or damaged. Race refunds it straight away, then sorts it out with the store or shopper.'}</p>
+    ${o.seal?`<div class="sec list"><label class="check"><input type="checkbox" ${c.sealBroken?'':'checked'} onchange="S.confirm['${id}'].sealBroken=!this.checked;save()"><div style="flex:1"><b>Seal ${o.seal} was intact</b><div class="small muted">Untick if it was torn or opened. You'll get a full refund for the items.</div></div></label></div>`:''}
+    <div class="sec list">${o.items.map((it,i) => it.removed ? '' : `<label class="check"><input type="checkbox" ${c.missing[i]?'':'checked'} onchange="S.confirm['${id}'].missing[${i}]=!this.checked;save()">
+      <div style="flex:1">${it.qty>1?it.qty+' \u00D7 ':''}${esc(it.name)}</div>${it.price?`<span class="price small">${fmt(it.price*it.qty)}</span>`:''}</label>`).join('')}</div>
+    <label class="field"><span>Anything else wrong? <span class="muted">(optional)</span></span><textarea class="input" placeholder="e.g. Got orange drink instead of cola" oninput="S.confirm['${id}'].note=this.value;save()">${esc(c.note)}</textarea></label>
+    <div style="margin-top:14px"><button class="btn green" onclick="submitConfirm('${id}')">Confirm and show release code</button></div>`;
+}
+function submitConfirm(id){
+  const o = find(id), c = S.confirm[id] || {missing:{}};
+  const miss = o.items.filter((it,i) => !it.removed && (c.missing[i] || c.sealBroken));
+  let refund = miss.reduce((a,it) => a + it.price*it.qty, 0);
+  if(o.type === 'shopper' && miss.length) refund = Math.round((o.lines.find(l=>l.l==='Goods budget')||{v:0}).v * miss.length / Math.max(1,o.items.length));
+  if(o.type === 'service' && miss.length) refund = o.total;
+  o.missing = miss.map(m => m.name);
+  if(refund > 0){
+    o.refund = (o.refund||0) + refund; S.wallet += refund; S.ops.refunds += refund; txn('Refund ' + o.id + ', missing items', refund);
+    S.ops.issues.unshift({id:o.id, kind:c.sealBroken?'Seal broken, possible tampering':o.type==='service'?'Job not completed':'Missing or wrong items', amt:refund, note:o.missing.join(', ') + (c.note?'. Customer note: ' + c.note:'')});
+    o.events.push({k:'ok', t:'Race covered ' + fmt(refund) + ' for ' + o.missing.join(', ') + '. Refunded to your wallet.'});
+    toast('<b>' + fmt(refund) + ' refunded.</b> Missing items are on us.');
+  } else if(c.note && c.note.trim()) S.ops.issues.unshift({id:o.id, kind:'Customer note', amt:0, note:c.note});
+  o.status = 'confirmed'; o.events.push({k:'info', t:'You confirmed the order. Release code shown.'});
+  delete S.confirm[id]; save(); go('track', id);
+}
+function rateScreen(id){
+  const o = find(id), p = person(o), r = S.rate;
+  const tags = o.type === 'service' ? ['On time','Neat work','Fair price','Polite'] : ['On time','Careful with items','Polite','Good packing'];
+  return `${backBtn('track', id)}<h1 class="h1">Rate ${esc(first(p.name))}</h1><p class="sub">Higher-rated riders and artisans get offered jobs first.</p>
+    <div class="starpick" role="radiogroup" aria-label="Stars">${[1,2,3,4,5].map(n => `<button role="radio" aria-checked="${r.stars===n}" aria-label="${n} star${n>1?'s':''}" class="${n<=r.stars?'on':''}" onclick="S.rate.stars=${n};save();render()">\u2605</button>`).join('')}</div>
+    <div class="tags">${tags.map(t => `<button class="tag" aria-pressed="${r.tags.includes(t)}" onclick="toggleTag('${t}')">${t}</button>`).join('')}</div>
+    <label class="field"><span>Write a review <span class="muted">(optional)</span></span><textarea class="input" placeholder="What stood out?" oninput="S.rate.text=this.value;save()">${esc(r.text)}</textarea></label>
+    ${o.tipLater && o.type !== 'service' ? `<div class="sec"><div class="sec-h"><h2>Add a tip?</h2><span class="small muted">100% to ${esc(first(p.name))}</span></div><div class="tips">${[0,200,500,1000].map(v => `<button class="tag" aria-pressed="${(r.tip||0)===v}" onclick="S.rate.tip=${v};save();render()">${v?fmt(v):'No tip'}</button>`).join('')}</div></div>` : ''}
+    ${S.err?`<div class="err">${S.err}</div>`:''}<div style="margin-top:14px"><button class="btn" onclick="submitRate('${id}')">Submit rating</button></div>`;
+}
+function toggleTag(t){ const a = S.rate.tags; S.rate.tags = a.includes(t) ? a.filter(x=>x!==t) : [...a, t]; save(); render(); }
+function submitRate(id){
+  const o = find(id), p = person(o), r = S.rate;
+  if(!r.stars){ S.err = 'Pick a star rating.'; return render(); }
+  p.rating = Math.round(((p.rating*p.count + r.stars)/(p.count+1))*100)/100; p.count++;
+  const text = [r.tags.join(', '), r.text.trim()].filter(Boolean).join('. ');
+  if(text) S.reviews.unshift({who:p.id, stars:r.stars, text, by:'You'});
+  if(r.tip && o.tipLater){ if(r.tip > S.wallet){ S.err = 'Your wallet has ' + fmt(S.wallet) + '. Pick a smaller tip or top up.'; return render(); }
+    S.wallet -= r.tip; txn('Tip for ' + p.name, -r.tip); o.tip = r.tip; const e = S.earn[p.id] || (S.earn[p.id] = {total:0, jobs:0}); e.total += r.tip; }
+  o.rated = true; S.rate = {stars:0, tags:[], text:''}; save(); go('orders');
+  toast('<b>Thanks.</b> ' + esc(p.name) + ' is now ' + p.rating.toFixed(2) + '\u2605.', false);
+}
+function ordersScreen(){
+  if(!S.orders.length) return `<h1 class="h1">Orders</h1><div class="card" style="margin-top:14px"><p>No orders yet. Open a restaurant or store on Home to place your first one.</p><div style="margin-top:12px"><button class="btn" onclick="go('home')">Start an order</button></div></div>`;
+  const label = {active:['','In progress'], arrived:['y','Arrived, check it'], confirmed:['y','Waiting for code'], completed:['g','Completed'], cancelled:['r','Cancelled']};
+  return `<h1 class="h1">Orders</h1><div class="sec list">${S.orders.map(o => { const [cls,l] = label[o.status];
+    return `<button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="go('track','${o.id}')">
+      <div class="grow"><div class="small muted">${o.id}</div><div class="name">${esc(o.title)}</div>
+      <div class="small">${fmt(o.total)}${o.refund?`, <span style="color:var(--green)">${fmt(o.refund)} refunded</span>`:''}${o.compensated?`, <span style="color:var(--red)">late credit ${fmt(o.compensated)}</span>`:''}</div></div>
+      <span class="chip ${cls}">${l}</span></button>`; }).join('')}</div>`;
+}
+function accountScreen(){
+  const tx = S.txns.slice(0,12).map(t => `<div class="li"><div class="grow">${esc(t.l)}</div><div class="price" style="color:${t.v>0?'var(--green)':'var(--text)'}">${t.v>0?'+':t.v<0?'\u2212':''}${t.v?fmt(Math.abs(t.v)):'\u2014'}</div></div>`).join('');
+  return `<h1 class="h1">Account</h1>
+    <div class="kpis sec"><div class="kpi"><b>${fmt(S.wallet)}</b><span>Wallet balance</span></div><div class="kpi"><b>${fmt(S.credits)}</b><span>Race credit</span></div></div>
+    <div class="sec"><button class="btn dark" onclick="S.wallet+=10000;txn('Top up (demo)',10000);save();render();toast('Added ${fmt(10000)} to your wallet.',false)">Top up ${fmt(10000)}</button></div>
+    <div class="card sec" style="border:2px solid ${S.plus?'var(--green)':'var(--line)'}"><div class="row between"><div><b style="font-family:var(--disp);font-size:18px">Race Plus</b><div class="small muted">Free delivery on orders over ${fmt(PLUS_MIN)}. ${fmt(PLUS_PRICE)} a month.</div></div>${S.plus?'<span class="chip g">Active</span>':''}</div>
+      <p class="small muted" style="margin-top:8px">You're never signed up automatically. We remind you 3 days before each renewal, and cancelling takes one tap with a refund for unused days.</p>
+      <div style="margin-top:10px">${S.plus?`<button class="btn ghost" onclick="S.plus=false;S.wallet+=Math.round(PLUS_PRICE*0.6);txn('Race Plus cancelled, unused days refunded',Math.round(PLUS_PRICE*0.6));save();render();toast('Race Plus cancelled. ${fmt(Math.round(PLUS_PRICE*0.6))} refunded for unused days.',false)">Cancel Race Plus</button>`:`<button class="btn dark" onclick="if(S.wallet<PLUS_PRICE){toast('Top up first.',false);return;}S.plus=true;S.wallet-=PLUS_PRICE;txn('Race Plus, 1 month',-PLUS_PRICE);save();render();toast('Race Plus is on. Free delivery over ${fmt(PLUS_MIN)}.',false)">Join for ${fmt(PLUS_PRICE)}</button>`}</div></div>
+    <div class="sec list">
+      <button class="li" style="width:100%;border:0;background:none;text-align:left" onclick="go('promises')"><div class="grow name">\u2714 Our promises to you</div><span class="muted">\u203A</span></button>
+      <button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="go('tickets')"><div class="grow name">\uD83D\uDCAC Help and support tickets</div><span class="muted">${S.tickets.filter(t=>t.status==='Open').length} open \u203A</span></button>
+      <button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="go('favs')"><div class="grow name">\u2665 Favourites</div><span class="muted">${S.favs.length} \u203A</span></button>
+      <button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="openSheet({kind:'addr'})"><div class="grow name">\uD83D\uDCCD Saved addresses</div><span class="muted">${S.addresses.length} \u203A</span></button>
+      <button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="openSheet({kind:'notes'})"><div class="grow name">\uD83D\uDD14 Notifications</div><span class="muted">\u203A</span></button></div>
+    <p class="note">Race credit comes from late deliveries and is used first when you pay from your wallet.</p>
+    ${IMGCREDITS.length?`<div style="margin-top:8px"><button class="btn-sm" onclick="openSheet({kind:'credits'})">Photo credits</button></div>`:''}
+    <div class="sec"><div class="sec-h"><h2>Activity</h2></div><div class="list">${tx}</div></div>`;
+}
+
+/* ================= VENDOR APP ================= */
+const PROMISES = [
+  ['Shop prices, no markup','The price on Race is the price at the counter. Shops pay us a commission instead of you paying hidden extra.'],
+  ['Every fee shown up front','Delivery, service fee, tip. That is all. No small-order, surge or last-step fees.'],
+  ['30 minutes or we tell you why','A live countdown on every order. Late without warning means your delivery fee back as credit, automatically.'],
+  ['Nobody is paid until you say so','Your money sits in escrow. The rider only gets paid when you give them your release code, so "marked delivered" can never happen without you.'],
+  ['Missing items refunded on the spot','Untick it on the check screen and the refund lands instantly. No photos, no claim forms, no tight deadlines.'],
+  ['Full refund if it never arrives','Cancelled by the shop or never delivered, you get every naira back, fees included.'],
+  ['Cancel with clear rules','Free until the kitchen starts. After that, all fees come back. Past our promised time, cancel for free.'],
+  ['No swap without your OK','Choose how out-of-stock items are handled. Drugs are never substituted.'],
+  ['Sealed and direct','Numbered tamper seal on every bag, and your rider carries only your order.'],
+  ['A real person, every time','Human support by chat or phone. Tickets stay open until you say the problem is fixed.'],
+  ['Fair pay for riders','Minimum pay per trip, all tips, instant payouts and accident cover with a local insurer.'],
+  ['Subscriptions you control','Race Plus is opt-in only, with a reminder before renewal and one-tap cancel.']
+];
+function promisesScreen(){
+  return `${backBtn('account')}<h1 class="h1">Our promises</h1><p class="sub">Built from what customers say goes wrong on other delivery apps. Each one is how Race actually works, not a slogan.</p>
+    <div class="sec list">${PROMISES.map(([h,d]) => `<div class="li" style="align-items:flex-start"><span class="chip g" style="margin-top:2px">\u2713</span><div class="grow"><div class="name">${h}</div><div class="small muted">${d}</div></div></div>`).join('')}</div>`;
+}
+function ticketsScreen(){
+  return `${backBtn('account')}<h1 class="h1">Help</h1>
+    <div class="sec"><button class="btn dark" onclick="openSheet({kind:'help'})">Talk to a person</button></div>
+    <div class="sec list">${S.tickets.length ? S.tickets.map(t => `<button class="li" style="width:100%;border-left:0;border-right:0;border-bottom:0;background:none;text-align:left" onclick="openSheet({kind:'support',tid:'${t.id}'})"><div class="grow"><div class="name">${esc(t.topic)}</div><div class="small muted">${t.id}${t.oid?', order '+t.oid:''}, ${t.agent}</div></div><span class="chip ${t.status==='Open'?'y':'g'}">${t.status}</span></button>`).join('') : '<div class="li"><div class="grow muted">No tickets yet. If anything goes wrong, a real person is one tap away.</div></div>'}</div>`;
+}
+function vendorView(){
+  const v = V(S.vendorMe);
+  const opts = VENDORS.map(x => `<option value="${x.id}" ${x.id===S.vendorMe?'selected':''}>${esc(x.name)}</option>`).join('');
+  const mine = S.orders.filter(o => o.vendorId === v.id);
+  const live = mine.filter(o => o.status === 'active' && simMin(o) >= 0 && o.stage <= 2);
+  const sales = mine.filter(o => o.status !== 'cancelled').reduce((a,o) => a + (o.sub||0), 0);
+  const cards = live.map(o => {
+    let act = '';
+    if(o.stage === 0) act = `<div class="row" style="margin-top:10px"><button class="btn green" style="flex:1" onclick="vAccept('${o.id}')">Accept</button><button class="btn ghost" style="flex:1" onclick="vDecline('${o.id}')">Decline</button></div><p class="note">Auto-accepts after 90 seconds of order time.</p>`;
+    else if(o.stage === 1) act = `<div style="margin-top:10px"><button class="btn" onclick="vReady('${o.id}')">Mark ready for pickup</button></div>`;
+    else act = `<div class="event ok">Ready. ${o.riderAccepted?esc(person(o).name)+' is collecting it.':'Waiting for a rider.'}</div>`;
+    return `<div class="card sec"><div class="row between"><div><div class="small muted">${o.id}, guarantee <b data-live="${o.id}" data-kind="clock">--:--</b></div><div class="b">${o.items.length} item${o.items.length>1?'s':''}, ${fmt(o.sub)}</div></div><span class="chip ${o.stage===0?'y':'g'}">${o.stage===0?'New':o.stage===1?'Preparing':'Ready'}</span></div>
+      <div class="list" style="margin-top:10px">${o.items.map(it => `<div class="li"><div class="grow">${it.qty} \u00D7 ${esc(it.name)}${it.note?`<div class="small muted">Note: ${esc(it.note)}</div>`:''}</div></div>`).join('')}</div>${act}</div>`;
+  }).join('');
+  return `<h1 class="h1">Vendor app</h1><p class="sub">Accept orders, prepare them, and hand over to the rider. Race pays you when the customer confirms.</p>
+    <label class="field"><span>Your store</span><select class="input" onchange="S.vendorMe=this.value;save();render()">${opts}</select></label>
+    <div class="kpis sec"><div class="kpi"><b>${fmt(sales)}</b><span>Sales today</span></div><div class="kpi"><b>${mine.filter(o=>o.status==='completed').length}</b><span>Orders completed</span></div></div>
+    <div class="sec-h sec"><h2>Incoming</h2></div>${cards || `<div class="card"><p>No live orders for ${esc(v.name)}. Place one in the Customer app and it appears here.</p></div>`}`;
+}
+function vAccept(id){ const o = find(id); o.accepted = true; o.events.push({k:'info', t:V(o.vendorId).name + ' accepted your order.'}); save(); tick(); render(); toast('Order ' + id + ' accepted.', false); }
+function vReady(id){ const o = find(id); o.ready = true; save(); tick(); render(); toast('Order ' + id + ' is ready for pickup.', false); }
+function vDecline(id){
+  const o = find(id); o.status = 'cancelled';
+  S.wallet += o.total; txn('Refund ' + o.id + ', store declined', o.total);
+  S.ops.issues.unshift({id:o.id, kind:'Store declined', amt:o.total, note:V(o.vendorId).name + ' declined. Full refund to customer wallet.'});
+  o.events.push({k:'bad', t:V(o.vendorId).name + ' declined the order. ' + fmt(o.total) + ' refunded to your wallet.'});
+  save(); render(); toast('<b>' + o.id + ' declined.</b> Customer refunded ' + fmt(o.total) + '.');
+}
+
+/* ================= RIDER APP ================= */
+function riderView(){
+  const me = anyPerson(S.riderMe), isArtisan = !!me.trade;
+  const opts = [...S.riders.map(r => `<option value="${r.id}" ${r.id===S.riderMe?'selected':''}>${esc(r.name)}, ${esc(r.role)}</option>`), ...S.artisans.map(a => `<option value="${a.id}" ${a.id===S.riderMe?'selected':''}>${esc(a.name)}, ${TRADES[a.trade]}</option>`)].join('');
+  const offers = !isArtisan && S.online ? S.orders.filter(o => o.status === 'active' && !o.riderAccepted && o.type !== 'service' && simMin(o) >= 0 && !o.skipped.includes(S.riderMe)) : [];
+  const jobs = S.orders.filter(o => isOpen(o) && o.personId === S.riderMe && o.riderAccepted);
+  const earn = S.earn[S.riderMe] || {total:0, jobs:0};
+  const offerCards = offers.map(o => { const v = vendorPos(o), km = (Math.abs(v.x-HOME.x) + Math.abs(v.y-HOME.y))/60;
+    return `<div class="offer sec"><div class="row between"><b style="font-family:var(--disp);font-size:20px">New job, ${fmt(o.workerPay - (o.tip||0))}</b><span class="chip y">${km.toFixed(1)} km</span></div>
+      <p class="small muted" style="margin-top:4px">Pick up at ${esc(o.vendorId?V(o.vendorId).name:o.title)}, drop at ${esc(o.address)}, ${esc(o.zone)}. Single order, guaranteed pay. Tips are added after delivery.</p>
+      <div class="row" style="margin-top:10px"><button class="btn green" style="flex:1" onclick="rAccept('${o.id}')">Accept</button><button class="btn ghost" style="flex:1" onclick="rSkip('${o.id}')">Skip</button></div></div>`; }).join('');
+  const jobCards = jobs.map(o => {
+    let body = '';
+    if(o.status === 'active') body = `<p class="small muted">${esc(stagesFor(o)[o.stage].l)}. Guarantee: <b data-live="${o.id}" data-kind="clock">--:--</b></p>${o.riderNote?`<div class="event info">Customer note: ${esc(o.riderNote)}</div>`:''}
+      <button class="btn-sm" style="margin-top:8px" onclick="openSheet({kind:'chat',oid:'${o.id}'})">\uD83D\uDCAC Chat with customer</button>`;
+    else if(o.status === 'arrived') body = `<div class="event warn">At the customer. Waiting for them to check the ${o.type==='service'?'job':'items'}.</div>`;
+    else body = `<label class="field"><span>Enter the customer's release code</span><input class="input" id="code-${o.id}" inputmode="numeric" maxlength="4" placeholder="4 digits" style="font-size:24px;letter-spacing:.3em;text-align:center"></label>
+      <div id="err-${o.id}" class="err" hidden></div><div style="margin-top:10px"><button class="btn green" onclick="releaseCode('${o.id}')">Release my payment</button></div>`;
+    return `<div class="card sec"><div class="row between"><div><div class="small muted">${o.id}, ${esc(o.zone)}</div><div class="b">${esc(o.title)}</div></div><span class="chip">${fmt(o.workerPay)}</span></div>
+      ${o.missing.length?`<div class="event bad">Customer reported missing: ${esc(o.missing.join(', '))}. Race refunded them. Ops will review.</div>`:''}<div style="margin-top:8px">${body}</div></div>`;
+  }).join('');
+  return `<h1 class="h1">Rider and artisan app</h1><p class="sub">Grab jobs, deliver, and get paid the moment you enter the customer's code.</p>
+    <label class="field"><span>Signed in as</span><select class="input" onchange="S.riderMe=this.value;save();render()">${opts}</select></label>
+    ${isArtisan?'':`<div class="online"><div><b>${S.online?'You\'re online':'You\'re offline'}</b><div class="small muted">${S.online?'New jobs near you appear below.':'Go online to receive jobs.'}</div></div><input type="checkbox" style="width:46px;height:26px;accent-color:var(--green)" ${S.online?'checked':''} onchange="S.online=this.checked;save();render()" aria-label="Online"></div>`}
+    <div class="kpis sec"><div class="kpi"><b>${fmt(earn.total)}</b><span>Earned today</span></div><div class="kpi"><b>${earn.jobs}</b><span>Jobs completed</span></div></div>
+    <div class="card sec"><b>How your pay works</b><p class="small muted" style="margin-top:4px">At least ${fmt(640)} per trip, 80% of every delivery fee, and 100% of tips. Paid to your bank the moment the customer's code is entered. One order per trip, never stacked.</p>
+      <p class="small muted" style="margin-top:6px">Accident cover up to ${fmt(1000000)} with a Nigerian insurer, claimed in the app with a local agent.</p>
+      <div style="margin-top:10px"><button class="btn-sm" onclick="toast('Claim started. A Race welfare officer will call you within 1 hour (demo).',false)">Report an accident</button></div></div>
+    ${offerCards}
+    <div class="sec-h sec"><h2>Your jobs</h2></div>${jobCards || `<div class="card"><p>No jobs for ${esc(me.name)} right now. ${isArtisan?'Book this artisan from the Customer app.':'Accept a job above, or place an order in the Customer app.'}</p></div>`}`;
+}
+function rAccept(id){ const o = find(id); o.personId = S.riderMe; o.riderAccepted = true; o.events.push({k:'info', t:person(o).name + ' accepted your order.'}); save(); render(); toast(esc(person(o).name) + ' took ' + id + '.', false); }
+function rSkip(id){ find(id).skipped.push(S.riderMe); save(); render(); }
+function releaseCode(id){
+  const o = find(id), v = (document.getElementById('code-' + id).value || '').trim(), err = document.getElementById('err-' + id);
+  if(v !== o.code){ err.hidden = false; err.textContent = 'That code doesn\'t match. Ask the customer to read it from their Race app.'; return; }
+  o.status = 'completed'; o.events.push({k:'ok', t:'Payment released to ' + person(o).name + '.'});
+  const e = S.earn[o.personId] || (S.earn[o.personId] = {total:0, jobs:0}); e.total += o.workerPay; e.jobs++;
+  S.ops.released += o.total - (o.refund||0); save(); render();
+  toast('<b>Payment released.</b> ' + fmt(o.workerPay) + ' sent to ' + esc(person(o).name) + '.');
+}
+
+/* ================= OPS ================= */
+function opsView(){
+  const t = S.opsTab;
+  const tabs = [['overview','Overview'],['board','Leaderboard'],['issues','Issues'],['plan','Business plan']].map(([k,l]) => `<button aria-pressed="${t===k}" onclick="S.opsTab='${k}';save();render()">${l}</button>`).join('');
+  const body = {overview:opsOverview, board:opsBoard, issues:opsIssues, plan:opsPlan}[t]();
+  return `<h1 class="h1">Race operations</h1><p class="sub">Enugu launch zone. Updates live from the customer, vendor and rider apps.</p><div class="tabs">${tabs}</div>${body}`;
+}
+function opsOverview(){
+  const all = S.orders, done = all.filter(o => ['completed','confirmed','arrived'].includes(o.status));
+  const onTime = done.filter(o => !o.compensated && (o.arrivedAt ?? 99) <= (o.notified ? o.eta : GUARANTEE)).length;
+  const held = activeOrders().reduce((a,o) => a + o.total - (o.refund||0), 0);
+  const avg = done.length ? Math.round(done.reduce((a,o)=>a+(o.arrivedAt||0),0)/done.length) : null;
+  const gmv = all.filter(o => o.status !== 'cancelled').reduce((a,o)=>a+o.total,0);
+  const rows = all.slice(0,12).map(o => { const g = guaranteeState(o);
+    return `<tr><td>${o.id}</td><td>${esc(o.title.slice(0,26))}</td><td>${o.riderAccepted||o.type==='service'?esc(person(o).name):'Finding rider'}</td><td>${o.status==='active'?esc((simMin(o)<0?'Scheduled':stagesFor(o)[o.stage].l).slice(0,26)):o.status}</td><td><span class="chip ${g.cls}">${g.l}</span></td><td>${fmt(o.total)}</td></tr>`; }).join('');
+  return `<div class="kpis sec">
+    <div class="kpi"><b>${activeOrders().length}</b><span>Live orders</span></div><div class="kpi"><b>${fmt(gmv)}</b><span>Order value today</span></div>
+    <div class="kpi"><b>${done.length?Math.round(onTime/done.length*100)+'%':'\u2014'}</b><span>On-time rate</span></div><div class="kpi"><b>${avg===null?'\u2014':avg+' min'}</b><span>Average arrival</span></div>
+    <div class="kpi"><b>${fmt(held)}</b><span>Held in escrow</span></div><div class="kpi"><b>${fmt(S.ops.released)}</b><span>Released to partners</span></div>
+    <div class="kpi"><b>${fmt(S.ops.comp)}</b><span>Late credits paid</span></div><div class="kpi"><b>${fmt(S.ops.refunds)}</b><span>Missing-item refunds</span></div></div>
+    <div class="sec-h sec"><h2>Orders</h2></div>
+    ${rows?`<div class="tablewrap"><table><thead><tr><th>Order</th><th>What</th><th>Assigned</th><th>Status</th><th>Guarantee</th><th>Value</th></tr></thead><tbody>${rows}</tbody></table></div>`:'<div class="card"><p>No orders yet. Place one in the Customer app to see it here.</p></div>'}`;
+}
+function opsBoard(){
+  const block = (title, arr, sub) => `<div class="sec"><div class="sec-h"><h2>${title}</h2></div><div class="list">${[...arr].sort((a,b) => b.rating-a.rating || b.count-a.count).map((p,i) => {
+    const rv = S.reviews.find(r => r.who === p.id);
+    return `<div class="li" style="align-items:flex-start"><div class="b" style="width:22px;font-family:var(--disp);font-size:18px">${i+1}</div><div class="avatar">${initials(p.name)}</div>
+      <div class="grow"><div class="name">${esc(p.name)}</div><div class="small muted">${esc(sub(p))}</div>${rv?`<div class="small muted">\u201C${esc(rv.text)}\u201D</div>`:''}</div>
+      <div style="text-align:right"><div class="b"><span class="stars">\u2605</span> ${p.rating.toFixed(2)}</div><div class="small muted">${p.count} jobs</div></div></div>`; }).join('')}</div></div>`;
+  return block('Riders and shoppers', S.riders, p => p.role + ', ' + p.note) + block('Artisans', S.artisans, p => TRADES[p.trade]) + block('Stores', VENDORS.map(v => ({...v, count:v.rc})), p => CATS[p.cat].title + ', ' + p.area);
+}
+function opsIssues(){
+  if(!S.ops.issues.length) return `<div class="card sec"><p>No issues yet. Untick an item when confirming, decline an order in the Vendor app, or run a delivery with traffic delay on and delay notice off.</p></div>`;
+  return `<div class="sec list">${S.ops.issues.map(i => `<div class="li" style="align-items:flex-start"><div class="grow"><div class="small muted">${i.id}</div><div class="name">${esc(i.kind)}</div><div class="small muted">${esc(i.note)}</div></div>${i.amt?`<span class="chip r">${fmt(i.amt)}</span>`:''}</div>`).join('')}</div>
+    <p class="note">Race pays the customer first, then recovers from the store, shopper, rider or artisan where they were at fault.</p>`;
+}
+function opsPlan(){
+  const fees = Object.values(SHOP_TYPES).map(t => `<tr><td>${t.l}</td><td>${t.d}</td><td>${fmt(t.fee)}</td></tr>`).join('');
+  return `<div class="plan card sec">
+    <h3 style="margin-top:0">What Race is</h3>
+    <p>A rapid delivery and services app, in the class of Glovo and Chowdeck, that gets customers food, drugs, groceries, anything they need, or a skilled artisan, within 15 to 30 minutes. It starts in five dense Enugu areas, proves the promise there, then expands area by area and state by state.</p>
+    <p class="small muted">Working names: Race, or Fast and Furious. Race is shorter, easier to trademark and owns its search results; Fast and Furious is a film franchise and risks a trademark dispute.</p>
+    <h3>Four connected apps</h3>
+    <ul><li><b>Customer</b>: browse restaurants and stores, customise meals, search, favourites, saved addresses, wallet, card or transfer, tips, promo codes, scheduling, live map, chat, reorder.</li>
+    <li><b>Vendor</b>: accept or decline orders, prepare, mark ready, see sales.</li>
+    <li><b>Rider and artisan</b>: go online, accept or skip job offers, chat, enter the release code to get paid.</li>
+    <li><b>Ops</b>: live orders, escrow, guarantee performance, refunds, leaderboard.</li></ul>
+    <h3>Sections</h3>
+    <ul><li>Food, Pharmacy (prescription upload and pharmacist check), Supermarket.</li><li>Anything else: equipment, foodstuff, any personal purchase.</li>
+    <li>Personal shopper: a vetted shopper buys for you at the market or store.</li><li>Artisans: plumbers, electricians, AC technicians, tailors, carpenters, cleaners.</li></ul>
+    <h3>Pricing</h3>
+    <p>Delivery is about ${fmt(DELIVERY_FEE)} per trip inside a launch area, some stores sponsor free delivery. A ${fmt(SERVICE_FEE)} service fee per order. Errands add ${fmt(ERRAND_FEE)}. Artisans set their own call-out fee.</p>
+    <p>The personal shopper fee is charged per location type, because each type is a separate trip. Mixing types means more stops, so more fees.</p>
+    <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Location</th><th>Covers</th><th>Fee</th></tr></thead><tbody>${fees}</tbody></table></div>
+    <h3>The 30-minute guarantee</h3>
+    <p>Every order shows a live countdown and map. If an order will pass 30 minutes, the customer gets a delay notice with a reason and new time. If it passes 30 minutes with no notice, the delivery fee comes back as Race credit automatically, capped at ${fmt(COMP_CAP)}. Launch the guarantee only where riders are positioned to hit it.</p>
+    <h3>Accountability and escrow</h3>
+    <p>Every payment goes into Race escrow. Before dispatch the store or shopper checks each item and uploads a photo. On arrival the customer checks the items or job. Anything missing or wrong is refunded by Race immediately and recovered from whoever was at fault. Once happy, the customer gives a 4-digit code that releases payment. If the customer goes silent, payment releases after 24 hours unless a problem was reported.</p>
+    <h3>Revenue, proposed</h3>
+    <ul><li>Delivery and errand fees, riders keep 80% (minimum ${fmt(640)} a trip) plus all tips.</li><li>Service fee per order.</li><li>Race Plus subscription, ${fmt(PLUS_PRICE)} a month.</li><li>Personal shopper fees, shoppers keep 85%.</li>
+    <li>8 to 12% commission from restaurants, pharmacies and supermarkets.</li><li>10% commission on artisan jobs.</li><li>Later: sponsored placement, free-delivery subscription.</li></ul>
+    <h3>What customers hate about other apps, and how Race fixes it</h3>
+    <div class="tablewrap" style="margin-top:6px"><table><thead><tr><th>Complaint</th><th>Seen at</th><th>Race fix</th></tr></thead><tbody>
+      <tr><td>Menu prices higher than in-store</td><td>Chowdeck (consumer suit, 2026), DoorDash, Instacart</td><td>Counter prices only, vendor commission instead</td></tr>
+      <tr><td>Fees not refunded when an order fails</td><td>Chowdeck</td><td>Every naira back if cancelled by the shop or not delivered</td></tr>
+      <tr><td>Can only cancel before the vendor accepts</td><td>Chowdeck</td><td>Published cancel rules: fees always back, free if late</td></tr>
+      <tr><td>Refund claims need photos within 1 to 3 hours</td><td>Chowdeck</td><td>Instant refund from the delivery checklist, no proof needed</td></tr>
+      <tr><td>Support is a bot, chats closed, no phone</td><td>Glovo, Uber Eats, Grubhub</td><td>Named human agents, phone line, ticket open until you confirm</td></tr>
+      <tr><td>Marked delivered, never arrived</td><td>Glovo, DoorDash, Instacart</td><td>Rider is paid only with the customer's release code</td></tr>
+      <tr><td>Riders rude, tampered food, cold food</td><td>Glovo Nigeria, Uber Eats</td><td>Numbered seals, single-order trips, public ratings</td></tr>
+      <tr><td>Substitutions nobody approved</td><td>Instacart, DoorDash</td><td>Ask-first by default, drugs never swapped, no reply means refund</td></tr>
+      <tr><td>Low tips mean nobody takes the order</td><td>Instacart</td><td>Tips hidden from job offers, optional tip after delivery</td></tr>
+      <tr><td>Subscriptions charged without consent</td><td>Glovo Prime, Uber One</td><td>Opt-in only, renewal reminder, one-tap cancel with refund</td></tr>
+      <tr><td>Riders underpaid, weak insurance claims</td><td>Glovo (Lagos rider protest 2024, Italy probe 2026)</td><td>Minimum pay per trip, instant payout, local insurer</td></tr>
+    </tbody></table></div>
+    <h3>Production build</h3>
+    <p>This prototype maps to: Next.js customer and vendor web apps, React Native or Flutter for the rider app, Firebase for auth, live order state and push notifications, Google Maps for routing and live location, Paystack or Flutterwave for cards, transfers and escrow-style split payouts, and Termii for SMS.</p>
+    <h3>Rollout</h3>
+    <ol><li>Sign up partner businesses in the launch areas: kitchens, pharmacies, supermarkets, market traders.</li>
+    <li>Recruit, ID-check and train riders, shoppers and artisans, positioned near the busiest stores.</li>
+    <li>Soft launch to a small group in one area and measure real delivery times.</li>
+    <li>Publicize once the 30-minute promise holds.</li><li>Open the next area, then the next state, repeating the same steps.</li></ol></div>`;
+}
+
+/* ================= DEMO ================= */
+function demoSheet(){
+  const d = S.demo;
+  return `<div class="row between"><h2 style="font-size:22px">Demo controls</h2><button class="btn-sm" onclick="closeSheet()">Done</button></div>
+    <p class="note">These apply to the next order you place.</p>
+    <div class="sec"><b>Speed</b>${SPEEDS.map(s => `<label class="opt"><input type="radio" name="spd" ${d.speed===s.v?'checked':''} onchange="S.demo.speed=${s.v};save()"><div><b>${s.l}</b><div class="small muted">${s.d}</div></div></label>`).join('')}</div>
+    <div class="sec"><b>Late delivery test</b>
+      <label class="switch"><div><div class="b">Traffic delay</div><div class="small muted">The order arrives at 38 minutes instead of 26.</div></div><input type="checkbox" ${d.delay?'checked':''} onchange="S.demo.delay=this.checked;save()"></label>
+      <label class="switch"><div><div class="b">Rider sends a delay notice</div><div class="small muted">Off means the rider stays silent and Race credits the customer at 30 minutes.</div></div><input type="checkbox" ${d.notify?'checked':''} onchange="S.demo.notify=this.checked;save()"></label></div>
+    <div class="sec"><button class="btn ghost" onclick="if(confirm('Reset all demo orders, wallet and ratings?')){S=fresh();save();closeSheet();go('home');toast('Demo reset.',false)}">Reset demo</button></div>`;
+}
+
+document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+document.getElementById('demoBtn').addEventListener('click', () => openSheet({kind:'demo'}));
+document.getElementById('bellBtn').addEventListener('click', () => openSheet({kind:'notes'}));
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSheet(); });
+render();
+setInterval(tick, 500);
+</script>
+</body>
+</html>
